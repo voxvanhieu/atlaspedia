@@ -1,0 +1,45 @@
+{
+  "version": 1,
+  "works": {
+    "10.1016/s0140-6736(97)11096-0": {
+      "checked": "2026-11-07",
+      "cited_by_count": 3500,
+      "id": "https://openalex.org/W2083016478",
+      "is_retracted": true,
+      "oa_url": null,
+      "status": "ok",
+      "title": "RETRACTED: Ileal-lymphoid-nodular hyperplasia, non-specific colitis, and pervasive developmental disorder in children",
+      "type": "article",
+      "venue": "The Lancet",
+      "year": 1998
+    },
+    "10.1080/13658816.2018.1504949": {
+      "checked": "2026-11-07",
+      "cited_by_count": 120,
+      "id": "https://openalex.org/W2888434591",
+      "is_retracted": false,
+      "oa_url": "https://www.tandfonline.com/doi/pdf/10.1080/13658816.2018.1504949",
+      "status": "ok",
+      "title": "The Equal Earth map projection",
+      "type": "article",
+      "venue": "International Journal of Geographical Information Science",
+      "year": 2018
+    },
+    "10.3133/pp1395": {
+      "checked": "2026-11-07",
+      "cited_by_count": 4200,
+      "id": "https://openalex.org/W1600439498",
+      "is_retracted": false,
+      "oa_url": "https://pubs.usgs.gov/pp/1395/report.pdf",
+      "status": "ok",
+      "title": "Map projections: A working manual",
+      "type": "report",
+      "venue": "U.S. Geological Survey Professional Paper",
+      "year": 1987
+    },
+    "10.48550/arxiv.2102.08176": {
+      "checked": "2026-11-07",
+      "status": "not_found"
+    }
+  }
+}

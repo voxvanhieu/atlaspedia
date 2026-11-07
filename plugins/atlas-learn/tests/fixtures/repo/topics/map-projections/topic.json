@@ -1,0 +1,11 @@
+{
+  "code": "map-projections",
+  "name": "How map projections work",
+  "description": "Understand and choose map projections for my own maps: Mercator, equal-area and compromise projections, and their forward equations.",
+  "tags": ["cartography", "maps", "geodesy", "gis"],
+  "status": "research",
+  "created": "2026-11-05",
+  "updated": "2026-11-07",
+  "pages": 0,
+  "entry": "index.html"
+}

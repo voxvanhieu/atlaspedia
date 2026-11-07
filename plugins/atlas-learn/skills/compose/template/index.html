@@ -1,0 +1,264 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>atlas-learn — Overview</title>
+<meta name="description" content="atlas-learn, a Claude Code plugin that turns “I want to learn X” into a verified, interactive documentation site in four stages: insight, brief, research, compose.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body data-page="index.html" data-subject="atlas-learn">
+<!--
+  OVERVIEW PAGE — a worked example. As shipped, this page introduces the atlas-learn plugin itself, so the template can be
+  opened on its own and read as the plugin's front page.
+  scaffold.py copies it to every new site; the W0 writer then rewrites it for the topic:
+    · keep the section order and the section ids (executive-summary, scope, methodology, key-findings, system-map,
+      curriculum-map, deliverables, how-to-use); retitle the h2 headings to fit the topic;
+    · replace every sentence, card, table row and the system-map drawing with the topic's own content from the
+      dossier and the pages — nothing about atlas-learn stays;
+    · keep the widgets marked data-stats / data-curriculum / data-sitemap: they render from assets/site.js.
+-->
+<main>
+  <header class="module-hero home-hero">
+    <div class="eyebrow">Claude Code plugin · Learning workflow · Version 0.1.0</div>
+    <h1>atlas-learn: from “I want to learn X” to a verified interactive site</h1>
+    <p class="lede">atlas-learn interviews you about what you want to learn, researches the topic on the web into a dossier where every source is checked, and builds a multi-page documentation site from that dossier. It runs in Claude Code, in as many sessions as the topic needs, and keeps everything for one topic in <code>topics/&lt;slug&gt;/</code>.</p>
+    <dl class="meta-strip">
+      <div><dt>Stages</dt><dd>Insight → brief → research → compose</dd></div>
+      <div><dt>Formats</dt><dd>Full site, or one self-contained page</dd></div>
+      <div><dt>Agents</dt><dd>9 subagents; the main agent only orchestrates</dd></div>
+      <div><dt>Output</dt><dd>Static HTML · diagrams and demos work offline; fonts, maths and media need internet</dd></div>
+    </dl>
+    <div class="hero-stats" data-stats></div>
+  </header>
+
+  <section>
+    <h2 id="executive-summary">What atlas-learn is</h2>
+    <p>Asking a model to “write me a guide to map projections” gives a fluent page with unchecked facts, a structure nobody asked for, and nothing to resume when the session ends. atlas-learn splits that request into four stages with a file between each pair. An <dfn>insight</dfn> pins down what you want and why. A <dfn>brief</dfn> turns it into modules. A <dfn>dossier</dfn> holds the verified sources and numbers for each module. The <dfn>site</dfn> is written from the dossier alone.</p>
+    <p>The main agent never researches or writes pages itself. It asks you questions, dispatches subagents by file path, runs a Python gate on what each one wrote, and ticks a row in a short plan only when the gate passes. Because the state lives in files, a run can stop after any module and the next <code>/atlas-learn:go</code> picks up the rows that are still open.</p>
+    <div class="callout note">
+      <span class="callout-title">Evidence labels in the sites atlas-learn builds</span>
+      <p>
+        <span class="badge established">Established</span> widely deployed practice ·
+        <span class="badge experimental">Experimental</span> research-stage results, not yet routine ·
+        <span class="badge emerging">Emerging</span> new products or tools whose maturity is still settling ·
+        <span class="badge discontinued">Discontinued</span> no longer sold or maintained ·
+        <span class="badge verified">Verified</span> the source was retrieved and its metadata checked.
+      </p>
+      <p>What the sources do not establish is marked, never filled in:
+        <span class="badge not-specified">Not specified</span> the sources cover the subject but not this value ·
+        <span class="badge insufficient">Insufficient evidence</span> too little to state it ·
+        <span class="badge unavailable">Not available in sources</span> no retrieved source covers it ·
+        <span class="badge conflict">Sources conflict</span> both values are shown ·
+        <span class="badge user-input">User-provided</span> a value from you, not from a source.
+        Demos label their readouts <i>Model output</i>: computed by the cited model from the inputs you set, not measured.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2 id="scope">What it does, and what it does not</h2>
+    <div class="grid-2">
+      <div class="card">
+        <h4>Objectives</h4>
+        <ol>
+          <li>Turn a vague learning goal into a confirmed insight, a reviewed brief and an approved module list, asking you only about direction, never about formats.</li>
+          <li>Research every module in parallel and keep only sources that a script or a verifier agent could confirm, with each unverified item marked as such.</li>
+          <li>Build a consistent, interactive site from one fixed template: navigation, search, maths, diagrams, demos, quizzes, exercises and a trust footer on every page.</li>
+          <li>Survive interruptions: every stage resumes from the files it left, on the same machine or after a fresh clone.</li>
+        </ol>
+      </div>
+      <div class="card">
+        <h4>Boundaries and assumptions</h4>
+        <ul>
+          <li><b>Not for quick questions.</b> A one-line factual answer does not need a brief and a dossier; ask Claude directly.</li>
+          <li><b>One source of facts.</b> Page writers have no web access. A fact the dossier lacks becomes a gap, which sends a researcher back, never a guess.</li>
+          <li><b>A snapshot.</b> A site reflects the sources on its review date; links point to the originals so the reader can check the current state.</li>
+          <li><b>Checked by scripts.</b> The gates validate structure, links and syntax; they do not open the site in a browser.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2 id="methodology">How a topic is built</h2>
+    <p>Each stage has its own command; <code>/atlas-learn:go &lt;topic or slug&gt;</code> runs whichever stage is next, one per call, and <code>--all</code> chains them. Approving the brief always stops to ask you.</p>
+    <ol class="steps">
+      <li id="stage-insights"><b>Insights — <code>/atlas-learn:collect-insights &lt;topic&gt;</code>.</b> An adaptive interview about your goal and direction. A field scout maps the field in the background; an insight refiner writes the refined insight and derives the policies (depth, source types, verification level). Ends with <code>tmp/INSIGHTS.md</code> confirmed, <code>PLAN.md</code> and <code>topic.json</code> created.</li>
+      <li id="stage-brief"><b>Brief — <code>/atlas-learn:research &lt;slug&gt;</code>.</b> A brief author writes the research brief; a reviewer that never saw the interview reads it with fresh eyes; you approve the outline. Ends with <code>tmp/BRIEF.md</code> approved and the module table in the plan.</li>
+      <li id="stage-research"><b>Research — <code>/atlas-learn:research &lt;slug&gt;</code>.</b> Module researchers work in parallel, one to three modules each. <code>check_links.py</code> and a source verifier confirm every URL, DOI, arXiv id and video; a consolidator writes the shared parameter sheet, glossary seed and build notes. Ends with <code>tmp/dossier/</code>.</li>
+      <li id="stage-compose"><b>Compose — <code>/atlas-learn:compose &lt;slug&gt;</code>.</b> A page plan, then <code>scaffold.py</code> copies this template; parallel page writers fill the pages from the dossier; <code>validate.py</code> gates every page and a site reviewer reads the result. Ends with <code>topics/&lt;slug&gt;/index.html</code> and <code>pages/</code>.</li>
+    </ol>
+    <div class="callout warn">
+      <span class="callout-title">Limitations</span>
+      <p>Research needs web search and fetch in the Claude session; when the search quota runs out, researchers stop and record what they could not establish as <i>Not available in sources</i> — nothing is filled in from memory — and the count appears in the plan's caveats and the final report. A single-page topic has a budget of about 250 KB; atlas-learn asks before switching a topic that outgrows it to the full site.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2 id="key-findings">Design principles</h2>
+    <div class="grid-2">
+      <div class="card finding"><span class="f-num">01</span><div><b>The main agent only orchestrates.</b><p>It holds the conversation, the plan and the gates, and passes file paths, not file contents, to subagents. Research results and page drafts never pass through its context, so a long topic does not crowd it out. <a class="xref" href="#methodology">How a topic is built</a></p></div></div>
+      <div class="card finding"><span class="f-num">02</span><div><b>Files are the interface.</b><p>Subagents cooperate across sessions through markdown under <code>topics/&lt;slug&gt;/tmp/</code>. If a session dies after 9 of 14 modules, the next run dispatches only the 5 rows still open. <a class="xref" href="#deliverables">What each stage leaves behind</a></p></div></div>
+      <div class="card finding"><span class="f-num">03</span><div><b>One source of facts.</b><p>Researchers find facts; writers only use them. Writers have no web tools, so a number on a page always traces back to a dossier row and its verified source. <a class="xref" href="#stage-research">Research stage</a></p></div></div>
+      <div class="card finding"><span class="f-num">04</span><div><b>Gates, not trust.</b><p>Every agent ends with a <code>RESULT:</code> line, and the main agent flips a plan row only after the matching Python gate passes on the file that line names. Scripts use the standard library only. <a class="xref" href="#how-to-use">Install and run</a></p></div></div>
+    </div>
+  </section>
+
+  <section>
+    <h2 id="system-map">Workflow map</h2>
+    <p>Click a stage to read what it does. Each stage writes files that the next one reads; the gates under the stages decide when a stage counts as done.</p>
+    <figure class="diagram" id="fig-workflow" data-cite="#ref-atlas-learn-docs">
+      <svg viewBox="0 0 960 400" role="img" aria-labelledby="fig-workflow-t"><title id="fig-workflow-t">The four atlas-learn stages, the files each one leaves, and the gates that check them</title>
+        <text class="d-text lbl" x="20" y="40">Main agent orchestrates · subagents work through files in topics/&lt;slug&gt;/tmp/</text>
+        <a href="#stage-insights">
+          <rect class="d-box accent" x="20" y="64" width="200" height="116" rx="8"/>
+          <text class="d-text b" x="120" y="96" text-anchor="middle">1 · Insights</text>
+          <text class="d-text mono" x="120" y="120" text-anchor="middle">collect-insights</text>
+          <text class="d-text xs" x="120" y="144" text-anchor="middle">interview · field scout</text>
+          <text class="d-text xs" x="120" y="160" text-anchor="middle">insight refiner</text>
+        </a>
+        <a href="#stage-brief">
+          <rect class="d-box" x="260" y="64" width="200" height="116" rx="8"/>
+          <text class="d-text b" x="360" y="96" text-anchor="middle">2 · Brief</text>
+          <text class="d-text mono" x="360" y="120" text-anchor="middle">research</text>
+          <text class="d-text xs" x="360" y="144" text-anchor="middle">brief author · reviewer</text>
+          <text class="d-text xs" x="360" y="160" text-anchor="middle">your approval</text>
+        </a>
+        <a href="#stage-research">
+          <rect class="d-box mcu" x="500" y="64" width="200" height="116" rx="8"/>
+          <text class="d-text b" x="600" y="96" text-anchor="middle">3 · Research</text>
+          <text class="d-text mono" x="600" y="120" text-anchor="middle">research</text>
+          <text class="d-text xs" x="600" y="144" text-anchor="middle">module researchers</text>
+          <text class="d-text xs" x="600" y="160" text-anchor="middle">verifier · consolidator</text>
+        </a>
+        <a href="#stage-compose">
+          <rect class="d-box ctl" x="740" y="64" width="200" height="116" rx="8"/>
+          <text class="d-text b" x="840" y="96" text-anchor="middle">4 · Compose</text>
+          <text class="d-text mono" x="840" y="120" text-anchor="middle">compose</text>
+          <text class="d-text xs" x="840" y="144" text-anchor="middle">scaffold · page writers</text>
+          <text class="d-text xs" x="840" y="160" text-anchor="middle">validator · site reviewer</text>
+        </a>
+        <path class="d-line d-data" d="M220 122 H258" marker-end="url(#arr-data)"/>
+        <path class="d-line d-data" d="M460 122 H498" marker-end="url(#arr-data)"/>
+        <path class="d-line d-data" d="M700 122 H738" marker-end="url(#arr-data)"/>
+        <rect class="d-box alt" x="20" y="226" width="200" height="56" rx="8"/>
+        <text class="d-text mono" x="120" y="250" text-anchor="middle">INSIGHTS.md</text>
+        <text class="d-text xs" x="120" y="270" text-anchor="middle">PLAN.md · topic.json</text>
+        <rect class="d-box alt" x="260" y="226" width="200" height="56" rx="8"/>
+        <text class="d-text mono" x="360" y="250" text-anchor="middle">BRIEF.md</text>
+        <text class="d-text xs" x="360" y="270" text-anchor="middle">BRIEF_REVIEW.md</text>
+        <rect class="d-box alt" x="500" y="226" width="200" height="56" rx="8"/>
+        <text class="d-text mono" x="600" y="250" text-anchor="middle">dossier/</text>
+        <text class="d-text xs" x="600" y="270" text-anchor="middle">00-overview.md · mNN-*.md</text>
+        <rect class="d-box alt" x="740" y="226" width="200" height="56" rx="8"/>
+        <text class="d-text mono" x="840" y="250" text-anchor="middle">index.html · pages/</text>
+        <text class="d-text xs" x="840" y="270" text-anchor="middle">SITE_PLAN.md · SITE_REVIEW.md</text>
+        <path class="d-line" d="M120 180 V224" marker-end="url(#arr-muted)"/>
+        <path class="d-line" d="M360 180 V224" marker-end="url(#arr-muted)"/>
+        <path class="d-line" d="M600 180 V224" marker-end="url(#arr-muted)"/>
+        <path class="d-line" d="M840 180 V224" marker-end="url(#arr-muted)"/>
+        <text class="d-text xs" x="128" y="206">writes</text>
+        <rect class="d-group" x="20" y="316" width="920" height="64" rx="10"/>
+        <text class="d-text b" x="480" y="342" text-anchor="middle">Python gates</text>
+        <text class="d-text sm" x="480" y="364" text-anchor="middle">check_plan · check_dossier · check_links · validate — a plan row flips only after its gate passes</text>
+        <path class="d-line d-ctrl d-dash" d="M120 282 V314" marker-end="url(#arr-ctrl)"/>
+        <path class="d-line d-ctrl d-dash" d="M360 282 V314" marker-end="url(#arr-ctrl)"/>
+        <path class="d-line d-ctrl d-dash" d="M600 282 V314" marker-end="url(#arr-ctrl)"/>
+        <path class="d-line d-ctrl d-dash" d="M840 282 V314" marker-end="url(#arr-ctrl)"/>
+      </svg>
+      <figcaption><b>Figure 0.1 — The atlas-learn workflow.</b> Read left to right: each stage's files are the next stage's input, and nothing moves on until a gate has checked them.</figcaption>
+      <div class="legend"><span class="lg-data">Stage order</span><span class="lg-control">Checked by a gate</span><span class="lg-box">Clickable stage</span></div>
+    </figure>
+  </section>
+
+  <section>
+    <h2 id="curriculum-map">Pages of this template</h2>
+    <p>This overview, the component style guide and the glossary are the template's own pages; a built topic adds one page per module. Cards turn green once you mark a page complete at the bottom of it; progress is stored only in this browser.</p>
+    <div class="map-filters" id="map-filters"></div>
+    <div class="curriculum" data-curriculum="map-filters"></div>
+    <figure class="diagram" id="fig-site-map">
+      <svg data-sitemap role="img" aria-labelledby="fig-site-map-t"><title id="fig-site-map-t">Template pages by group</title></svg>
+      <figcaption><b>Figure 0.2 — Site map.</b> Generated from the registry in <code>assets/site.js</code>; a topic's overview draws its own thematic map instead.</figcaption>
+      <div class="legend"><span class="lg-box">Clickable page</span></div>
+    </figure>
+  </section>
+
+  <section>
+    <h2 id="deliverables">What each stage leaves behind</h2>
+    <p>Everything under <code>tmp/</code> is ignored by git but never cleared by the plugin; the plan, the topic card and the built site are committed.</p>
+    <div class="table-wrap">
+      <div class="table-tools">
+        <span class="tt-title">Files → stage → gate</span>
+        <input class="table-filter" data-target="tbl-deliv" placeholder="Filter files…">
+        <span class="tt-count" data-target="tbl-deliv"></span>
+      </div>
+      <table id="tbl-deliv" class="sortable">
+        <thead><tr><th class="num">#</th><th>File</th><th>Stage</th><th>Written by</th><th>Checked by</th></tr></thead>
+        <tbody>
+          <tr><td class="num">1</td><td><code>tmp/FIELD_MAP.md</code></td><td><a href="#stage-insights">Insights</a></td><td>field scout</td><td>—</td></tr>
+          <tr><td class="num">2</td><td><code>tmp/INSIGHTS.md</code></td><td><a href="#stage-insights">Insights</a></td><td>insight refiner</td><td><code>check_plan.py</code> (insight hash)</td></tr>
+          <tr><td class="num">3</td><td><code>PLAN.md</code> · <code>topic.json</code></td><td><a href="#stage-insights">Insights</a></td><td>main agent</td><td><code>check_plan.py</code> · <code>build_index.py</code></td></tr>
+          <tr><td class="num">4</td><td><code>tmp/BRIEF.md</code> · <code>BRIEF_REVIEW.md</code></td><td><a href="#stage-brief">Brief</a></td><td>brief author · reviewer</td><td>your approval</td></tr>
+          <tr><td class="num">5</td><td><code>tmp/dossier/mNN-*.md</code></td><td><a href="#stage-research">Research</a></td><td>module researchers</td><td><code>check_dossier.py</code> · <code>check_links.py</code></td></tr>
+          <tr><td class="num">6</td><td><code>tmp/dossier/00-overview.md</code></td><td><a href="#stage-research">Research</a></td><td>dossier consolidator</td><td><code>check_dossier.py</code></td></tr>
+          <tr><td class="num">7</td><td><code>tmp/SITE_PLAN.md</code> · <code>assets/site.json</code></td><td><a href="#stage-compose">Compose</a></td><td>main agent</td><td><code>scaffold.py</code></td></tr>
+          <tr><td class="num">8</td><td><code>index.html</code> · <code>pages/*.html</code></td><td><a href="#stage-compose">Compose</a></td><td>page writers</td><td><code>validate.py</code></td></tr>
+          <tr><td class="num">9</td><td><code>tmp/SITE_REVIEW.md</code></td><td><a href="#stage-compose">Compose</a></td><td>site reviewer</td><td>—</td></tr>
+          <tr><td class="num">10</td><td>Root <code>index.html</code></td><td>every stage</td><td><code>build_index.py</code></td><td>—</td></tr>
+        </tbody>
+      </table>
+      <div class="table-note">File formats are defined in <code>references/contracts.md</code>; a gate that fails prints <code>file:line</code> lines naming the shape it expected.</div>
+    </div>
+  </section>
+
+  <section>
+    <h2 id="how-to-use">Install and run</h2>
+    <div class="grid-3">
+      <div class="card"><h4>Enable</h4><p>Copy the keys from <code>settings.example.json</code> into the repository's <code>.claude/settings.json</code>: the <code>learning-local</code> marketplace, <code>atlas-learn@learning-local</code>, and the permission allow list. Then run <code>/plugin</code> or restart Claude Code. Needs Python 3.11+ on PATH; <code>node</code> is optional.</p></div>
+      <div class="card"><h4>Run</h4><p><code>/atlas-learn:go how map projections work</code> starts a topic. Each later <code>/atlas-learn:go map-projections</code> runs the next stage. Add <code>--single</code> or <code>--site</code> to force a format, and <code>--all</code> to chain the stages.</p></div>
+      <div class="card"><h4>Read a site</h4><p>The left sidebar lists every page; the right rail shows the sections of the current page. Press <kbd>/</kbd> to search pages, sections and glossary terms; the <a href="glossary.html">glossary</a> defines every atlas-learn term. Diagrams zoom with <kbd>Ctrl</kbd>/<kbd>⌘</kbd>+scroll and pan by dragging.</p></div>
+    </div>
+    <pre><code class="language-bash"># session 1 — interview, then the plan and the topic card
+/atlas-learn:go how map projections work
+
+# session 2 — brief, review, your approval, then research
+/atlas-learn:go map-projections
+
+# session 3 — scaffold, page writers, validation, review
+/atlas-learn:go map-projections
+
+# maintenance: run the tests, refresh the style guide after editing a component
+python .claude/plugins/atlas-learn/tests/run_tests.py
+python .claude/plugins/atlas-learn/scripts/check_components.py --styleguide</code></pre>
+    <div class="callout safety">
+      <span class="callout-title">Before you rely on a site</span>
+      <p>atlas-learn verifies that sources exist and say what the dossier claims; it does not make a topic safe to act on. Check the trust footer at the bottom of every page: it counts the verified sources, names the review date and lists the open gaps.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2 id="sources">Sources</h2>
+    <p>Everything this page says about atlas-learn rests on the plugin's own documentation. A topic's overview lists here the sources its findings and its system map cite, or links each finding to the page section that cites them.</p>
+    <ol class="refs">
+      <li id="ref-atlas-learn-docs" data-type="report" data-authors="atlas-learn plugin" data-year="2026" data-title="atlas-learn plugin documentation: README.md, references/contracts.md, references/evidence-policy.md and the stage skills" data-venue="local plugin files"><span class="ref-authors">atlas-learn plugin</span> (2026). atlas-learn plugin documentation: README.md, references/contracts.md, references/evidence-policy.md and the stage skills. <span class="ref-venue">Local plugin files.</span> <span class="badge neutral">Local documentation</span><span class="why">The stages, gates and file contracts this page summarises.</span></li>
+    </ol>
+  </section>
+</main>
+
+<script src="assets/site.js"></script>
+<script src="assets/glossary.js"></script>
+<script src="assets/data.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+<script defer src="assets/app.js"></script>
+<script>
+document.addEventListener('qc:ready', () => {
+  // The overview normally needs no page script: stats, curriculum map and site map render from assets/site.js.
+});
+</script>
+</body>
+</html>

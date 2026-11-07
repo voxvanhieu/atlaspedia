@@ -1,0 +1,11 @@
+{
+  "code": "bad-topic",
+  "name": "A topic with a bad status",
+  "description": "Used by the tests: its status is not in the vocabulary, so the dictionary leaves it out.",
+  "tags": ["tests"],
+  "status": "cooking",
+  "created": "2026-11-01",
+  "updated": "2026-11-02",
+  "pages": 0,
+  "entry": "index.html"
+}

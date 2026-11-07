@@ -1,0 +1,11 @@
+{
+  "code": "old-notes",
+  "name": "Older finished topic",
+  "description": "A finished topic with an earlier update date; sorts after map-projections.",
+  "tags": ["tests", "done"],
+  "status": "done",
+  "created": "2026-10-01",
+  "updated": "2026-10-20",
+  "pages": 3,
+  "entry": "index.html"
+}

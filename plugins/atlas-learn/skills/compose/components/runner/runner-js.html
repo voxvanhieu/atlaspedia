@@ -1,0 +1,42 @@
+<!-- atlas-learn component: runner/runner-js.html · use when: an algorithm the reader should edit and run — a filter step, a bit trick, a small simulation in JavaScript; runs offline in a sandboxed frame · replace: the runner ids, the starting code inside pre > code (escape < as &lt; and & as &amp;), data-expected (the real stdout of the code as written, newlines as &#10;), data-timeout, the setup script (its id and body; omit data-setup when there is none) · runtime: d5-runner (editable code, Run with Ctrl+Enter, Reset, Copy, output pane with stdout and stderr, pass/fail chip; edits saved per runner id; iframe sandbox allow-scripts only) · validator: runner without id; unknown data-lang; runner has no starting code; data-setup not found; data-timeout is not a positive integer; duplicate runner id; with ATLAS_RUN_RUNNERS=1 node output differs from data-expected -->
+<script type="text/plain" id="d5-kalman-setup">
+// GPS latitude fixes [deg] from a phone lying still in Hanoi, one per second
+const FIXES = [21.0312, 21.0297, 21.0331, 21.0305, 21.0322, 21.0301];
+const M_PER_DEG = 111320;                        // metres per degree of latitude
+const row = (z, K, x, P) => `z=${z.toFixed(4)}  K=${K.toFixed(3)}  x=${x.toFixed(4)}  sigma=${(Math.sqrt(P) * M_PER_DEG).toFixed(0)} m`;
+</script>
+<div class="runner" id="d5-kalman-1d" data-lang="js" data-setup="d5-kalman-setup" data-timeout="3000" data-expected="z=21.0297  K=0.976  x=21.0297  sigma=174 m&#10;z=21.0331  K=0.495  x=21.0314  sigma=124 m&#10;z=21.0305  K=0.333  x=21.0311  sigma=102 m&#10;z=21.0322  K=0.252  x=21.0314  sigma=88 m&#10;z=21.0301  K=0.204  x=21.0311  sigma=79 m">
+<pre><code class="language-javascript">// One step of a 1-D Kalman filter per fix: predict, then update. Change R or Q and run again.
+let x = FIXES[0];        // state estimate: latitude [deg]
+let P = 1e-4;            // estimate variance [deg^2]
+const Q = 1e-8;          // process noise: drift of the true position per step [deg^2]
+const R = 2.5e-6;        // measurement noise: GPS sigma about 1.6e-3 deg (175 m)
+
+for (const z of FIXES.slice(1)) {
+  P = P + Q;                     // predict: the state stays, the uncertainty grows
+  const K = P / (P + R);         // gain: how far to trust the new fix
+  x = x + K * (z - x);           // update with the innovation z - x
+  P = (1 - K) * P;
+  console.log(row(z, K, x, P));
+}</code></pre>
+</div>
+<div class="runner" id="d5-quadkey" data-lang="js" data-expected="tile 3252 1803 quadkey 132210112122&#10;x bits 110010110100 y bits 011100001011&#10;parent ok: true">
+<pre><code class="language-javascript">// Web-map tiles: which tile holds a point, and its quadkey (x and y bits interleaved, Bing Maps scheme).
+function tile(lat, lon, zoom) {
+  const n = 1 &lt;&lt; zoom, phi = lat * Math.PI / 180;
+  return [Math.floor((lon + 180) / 360 * n), Math.floor((1 - Math.asinh(Math.tan(phi)) / Math.PI) / 2 * n)];
+}
+function quadkey(x, y, zoom) {
+  let key = '';
+  for (let i = zoom; i &gt; 0; i--) {
+    const mask = 1 &lt;&lt; (i - 1);
+    key += ((x &amp; mask) ? 1 : 0) + ((y &amp; mask) ? 2 : 0);   // a bit of x adds 1, a bit of y adds 2
+  }
+  return key;
+}
+const [x, y] = tile(21.03, 105.85, 12);                  // Hanoi at zoom 12
+console.log('tile', x, y, 'quadkey', quadkey(x, y, 12));
+console.log('x bits', x.toString(2).padStart(12, '0'), 'y bits', y.toString(2).padStart(12, '0'));
+// check: the parent tile (x &gt;&gt; 1, y &gt;&gt; 1) has the same key without its last digit
+console.log('parent ok:', quadkey(x &gt;&gt; 1, y &gt;&gt; 1, 11) === quadkey(x, y, 12).slice(0, -1));</code></pre>
+</div>

@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Map projections in one page</title>
+<meta name="description" content="Single-page guide: how map projections work and how to choose one.">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body data-page="index.html">
+<!-- fixture page for the single format; the include comment below must survive bundling untouched:
+     <script src="assets/app.js"></script> -->
+<main>
+  <header class="module-hero home-hero">
+    <div class="eyebrow">Single-page guide · Map projections</div>
+    <h1>Map projections in one page</h1>
+    <p class="lede">Flatten a globe onto a page, and know what every flat map gives up.</p>
+    <dl class="meta-strip">
+      <div><dt>Reading time</dt><dd>≈ 30 min</dd></div>
+      <div><dt>Level</dt><dd>Beginner → practitioner</dd></div>
+      <div><dt>Parts</dt><dd>2</dd></div>
+      <div><dt>Deliverable</dt><dd>Mercator forward equations in 20 lines</dd></div>
+    </dl>
+  </header>
+
+  <section>
+    <h2 id="summary">In one page</h2>
+    <ol class="objectives"><li>Write the Mercator forward equations.</li><li>Choose a projection for a map's extent and purpose.</li><li>Read distortion from Tissot's indicatrix.</li></ol>
+    <div class="grid-3">
+      <a class="card finding" href="#m01-basics"><span class="f-num">01</span><p>No flat map keeps both shapes and areas.</p></a>
+      <a class="card finding" href="#m02-choosing"><span class="f-num">02</span><p>Extent and purpose decide the projection.</p></a>
+      <a class="card finding" href="#checkpoints"><span class="f-num">03</span><p>Check yourself before you publish a map.</p></a>
+    </div>
+  </section>
+
+  <section class="part" data-part="M01">
+    <h2 id="m01-basics">01 · Basics</h2>
+    <p>A projection maps latitude and longitude on the sphere to x and y on the plane, and must stretch something on the way.</p>
+    <h3 id="m01-scale">Scale factor</h3>
+    <p>On Mercator the scale factor \( k = \sec\varphi \) grows towards the poles, so areas grow by \( k^2 \).</p>
+    <div class="callout case"><span class="callout-title">Worked example</span><p>At 72° N the formula above gives \( k = \sec 72^\circ \approx 3.24 \), so areas there are drawn \( k^2 \approx 10.5 \) times too large <a class="cite" href="#ref-snyder">[1]</a>.</p></div>
+    <p class="part-more">Go deeper: <a class="cite" href="#ref-snyder">[1]</a></p>
+  </section>
+
+  <section class="part" data-part="M02">
+    <h2 id="m02-choosing">02 · Choosing</h2>
+    <p>Use a conformal projection for navigation and local shapes; use an equal-area projection for anything that compares sizes.</p>
+    <div class="callout mistakes"><span class="callout-title">Pitfall</span><p>Using Web Mercator for a world map of population density.</p></div>
+    <p class="part-more">Go deeper: <a class="cite" href="#ref-snyder">[1]</a></p>
+  </section>
+
+  <section>
+    <h2 id="checkpoints">Check yourself</h2>
+    <div class="quiz" data-answer="1">
+      <p class="q">What does an equal-area projection keep?</p>
+      <ol class="opts"><li>Shapes of small regions</li><li>Relative sizes of regions</li><li>Nothing</li></ol>
+      <div class="explain">Equal-area keeps areas in proportion; it gives up shapes, which is what conformal projections keep.</div>
+    </div>
+  </section>
+
+  <section>
+    <h2 id="exercises">Exercises</h2>
+    <div class="exercise" id="ex-1" data-difficulty="1">
+      <div class="exercise-head"><span class="exercise-label">Exercise 1</span><span class="exercise-diff"></span></div>
+      <p>On Mercator, by how much is area exaggerated at 60° latitude?</p>
+      <details class="hint"><summary>Hint 1</summary><p>The area factor is the square of the scale factor.</p></details>
+      <details class="solution"><summary>Solution</summary><p>k = sec 60° = 2, so areas are 2² = 4 times too large.</p></details>
+    </div>
+  </section>
+
+  <section>
+    <h2 id="glossary">Glossary</h2>
+    <div class="glossary-inline" data-glossary></div>
+  </section>
+
+  <section>
+    <h2 id="references">References</h2>
+    <ol class="refs">
+      <li id="ref-snyder"><span class="ref-authors">J. P. Snyder</span> (1987). <a href="https://doi.org/10.3133/pp1395">Map Projections — A Working Manual</a>. <span class="ref-venue">USGS Professional Paper 1395</span> <span class="badge established">Foundational</span> <span class="badge verified">Verified</span><span class="why">The standard reference with every forward formula.</span></li>
+    </ol>
+  </section>
+
+  <section class="trust" data-reviewed="2026-11-07">
+    <h2 id="trust">Trust &amp; provenance</h2>
+    <div class="trust-stats" aria-live="polite"></div>
+    <details class="trust-assumptions"><summary>Assumptions and simplifications</summary>
+      <ul><li>Spherical Earth; the ellipsoid changes the numbers by well under one percent.</li></ul></details>
+  </section>
+</main>
+
+<script src="assets/site.js"></script>
+<script src="assets/glossary.js"></script>
+<script src="assets/data.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+<script defer src="assets/app.js"></script>
+<script>
+document.addEventListener('qc:ready', () => {
+  // no page script needed
+});
+</script>
+</body>
+</html>

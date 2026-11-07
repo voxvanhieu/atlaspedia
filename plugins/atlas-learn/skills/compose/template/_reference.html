@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bibliography</title>
+<meta name="description" content="Every source cited in the [Site title] interactive research report, filterable by module, type and status.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body data-page="bibliography.html">
+<!--
+  LECTERN REFERENCE PAGE SKELETON (page kind: reference) — bibliography and other table-first pages (deliverables index, parts list).
+  Copy to <pagesDir>/<file>.html, then:
+  1. Set <title>, the description, data-page (must equal the file name) and the hero. Reference pages have no level.
+  2. Register the page in SITE_PLAN.md / assets/site.json (scaffold.py --sync regenerates site.js). Keep every <h2> with a stable id.
+  3. The table: one row per entry, every reference from the dossier's Sources tables with its verified status; the select filter
+     auto-populates from the column it names (data-col). Keep the table id and the data-target values equal.
+  4. app.js injects the top bar, sidebar, on-page TOC, search, pager and footnote, and adds filter/sort to the table. Do not write them.
+  5. The trust footer (section.trust) stays the LAST section; set data-reviewed to the day you wrote the page.
+  6. Evidence (references/evidence-policy.md): every row comes from the dossier and cites it (data-cite on the tr, or a cite in a
+     cell); an empty cell is "—" with a not-specified badge, never a guess; a GAP marker comment has a visible badge beside it.
+-->
+<main>
+  <header class="module-hero">
+    <div class="eyebrow">Reference · Bibliography</div>
+    <h1>Bibliography</h1>
+    <p class="lede">Every source cited in this report, with the module that uses it, its type and its verification status.</p>
+  </header>
+
+  <section>
+    <h2 id="how-to-read">How to read this table</h2>
+    <p>…</p>
+  </section>
+
+  <section>
+    <h2 id="references">All references</h2>
+    <div class="table-wrap">
+      <div class="table-tools">
+        <span class="tt-title">All references</span>
+        <input class="table-filter" data-target="tbl-bib" placeholder="Filter by author, title, topic…">
+        <select class="table-filter-select" data-target="tbl-bib" data-col="3"><option value="">All modules</option></select>
+        <span class="tt-count" data-target="tbl-bib"></span>
+      </div>
+      <table id="tbl-bib" class="sortable">
+        <thead><tr><th>Reference</th><th class="num">Year</th><th>Type</th><th>Module</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr><td id="ref-key"><span class="ref-authors">Author</span>, <a href="https://doi.org/…">Title</a>, <span class="ref-venue">Venue</span></td><td class="num">Year</td><td>Paper</td><td>M01</td><td><span class="badge established">Foundational</span> <span class="badge verified">Verified</span></td></tr>
+        </tbody>
+      </table>
+      <div class="table-note">Verified = the link resolves and the source states what this report cites it for.</div>
+    </div>
+  </section>
+
+  <section class="trust" data-reviewed="2026-11-07">
+    <h2 id="trust">Trust &amp; provenance</h2>
+    <div class="trust-stats" aria-live="polite"></div>
+    <details class="trust-assumptions"><summary>Assumptions and simplifications</summary>
+      <ul><li>One line per assumption this page rests on (for a bibliography: how entries were verified and when).</li></ul></details>
+    <details class="trust-gaps"><summary>Open gaps</summary>
+      <ul><li>page#section: what is missing — delete this whole details block when there are none.</li></ul></details>
+  </section>
+</main>
+
+<script src="assets/site.js"></script>
+<script src="assets/glossary.js"></script>
+<script src="assets/data.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+<script defer src="assets/app.js"></script>
+<script>
+document.addEventListener('qc:ready', () => {
+  // page-specific interactive code goes here (QC.plot, QC.bindControls, QC.fmt, QC.onTheme, QC.store …)
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,26 @@
+<!-- atlas-learn component: assessment/bloom.html · use when: the brief's learning design names outcomes with Bloom verbs — tag each objective, checkpoint and exercise with its level and render the outcome matrix (which objective is assessed where); data-outcomes="site" renders the site-wide matrix from the manifest · replace: the objectives and their data-bloom levels, the data-objective indexes (1-based, into the objectives list) on quizzes and exercises; the matrix divs need no content (data-outcomes="#id" names the list when a page has several) · runtime: learn: a Bloom chip after every tagged item, the page matrix from ol.objectives and data-objective, the site matrix from DATA.manifest · validator: data-bloom … is not a Bloom level; data-objective n but the page has m objectives; outcome matrix but the page has no ol.objectives -->
+<ol class="objectives" id="b5-objectives">
+  <li data-bloom="remember">State the four stages of an atlas-learn run and the gate that closes each one.</li>
+  <li data-bloom="understand">Explain what a gap badge on a page tells the reader.</li>
+  <li data-bloom="apply">Compute whether a single-page topic fits the 250 KB budget from its brief.</li>
+  <li data-bloom="analyze">Trace a number on a page back to its reference entry and verification badge.</li>
+  <li data-bloom="create">Write a research plan that passes <code>check_plan.py</code> on the first run.</li>
+</ol>
+<div class="quiz" data-answer="2" data-bloom="apply" data-objective="3">
+  <p class="q">A brief has 6 parts of 36 KB and the frame takes 40 KB. Does the single page fit the 250 KB budget?</p>
+  <ol class="opts">
+    <li>Yes — 6 × 36 KB = 216 KB is under the budget.</li>
+    <li>No — the frame alone pushes it over.</li>
+    <li>No — 216 KB + 40 KB = 256 KB is 6 KB over, so the compose skill asks whether to switch to a site.</li>
+  </ol>
+  <div class="explain">The frame counts. 256 KB exceeds 250 KB, which is the warning <code>validate.py</code> raises and the question the compose skill then asks.</div>
+</div>
+<div class="exercise" id="b5-ex-1" data-difficulty="1" data-bloom="analyze" data-objective="4">
+  <div class="exercise-head"><span class="exercise-label">Exercise B5.1</span><span class="exercise-diff" aria-label="difficulty 1 of 3"></span><span class="badge neutral">≈ 10 min</span></div>
+  <p>Pick one number on a module page of the <code>map-projections</code> sample (the Web Mercator area exaggeration quoted in M02, for example) and find the reference entry it cites. Which verification badge does the entry carry?</p>
+  <details class="hint"><summary>Hint 1</summary><p>The page's <code>a.cite</code> link names the reference id; the page's references list shows that entry with its badges.</p></details>
+  <details class="solution"><summary>Solution</summary><p>The citation leads to an entry in the references list. An entry with the <span class="badge verified">Verified</span> badge resolves and states what the page cites it for; an entry without it is a lead, not a confirmed source.</p></details>
+</div>
+<div class="outcomes" data-outcomes="#b5-objectives"></div>
+<h4>Site-wide outcome matrix</h4>
+<div class="outcomes" data-outcomes="site"></div>

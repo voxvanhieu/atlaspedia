@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Notation</title>
+<meta name="description" content="Every symbol and constant used across the report — meaning, unit and where it is defined — rendered from assets/data.js.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body data-page="notation.html">
+<main>
+  <header class="module-hero">
+    <div class="eyebrow">Reference · Notation</div>
+    <h1>Notation and constants</h1>
+    <p class="lede">Every symbol and constant the modules use, with its meaning, unit and the section that defines it. The same entries answer the site search (press <kbd>/</kbd>).</p>
+    <dl class="meta-strip">
+      <div><dt>Symbols</dt><dd id="notation-count-symbols">—</dd></div>
+      <div><dt>Constants</dt><dd id="notation-count-constants">—</dd></div>
+      <div><dt>Pages</dt><dd id="notation-count-pages">—</dd></div>
+      <div><dt>Source</dt><dd><code>assets/data.js</code></dd></div>
+    </dl>
+  </header>
+
+  <section>
+    <h2 id="about">How to use</h2>
+    <p>Type in the filter box to match a symbol, its meaning or its unit; restrict to symbols or constants with the drop-down; click a column header to sort; the jump bar goes to the first entry of a letter. Entries come from <code>assets/notation.json</code> and from every <code>table.notation</code> and <code>table.constants</code> on the pages — <code>build_site_data.py</code> collects them (run by <code>scaffold.py --sync</code>). A symbol that means two different things on two pages is flagged by the validator: one symbol, one meaning across the site.</p>
+  </section>
+
+  <section>
+    <h2 id="symbols">Symbols and constants</h2>
+    <div class="notation-page" data-notation></div>
+  </section>
+
+  <section class="trust" data-reviewed="2026-11-07">
+    <h2 id="trust">Trust &amp; provenance</h2>
+    <div class="trust-stats" aria-live="polite"></div>
+    <details class="trust-assumptions"><summary>Assumptions and simplifications</summary>
+      <ul><li>Entries are collected mechanically from the pages and <code>assets/notation.json</code>; a meaning is only as precise as the table it was taken from, and values are quoted as the pages quote them.</li></ul></details>
+  </section>
+</main>
+
+<script src="assets/site.js"></script>
+<script src="assets/glossary.js"></script>
+<script src="assets/data.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+<script defer src="assets/app.js"></script>
+</body>
+</html>

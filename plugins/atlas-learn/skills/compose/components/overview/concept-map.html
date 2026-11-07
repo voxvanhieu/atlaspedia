@@ -1,0 +1,6 @@
+<!-- atlas-learn component: overview/concept-map.html · use when: a page that wants the map of its own glossary terms and their neighbours (a module's keywords section, the overview); the whole-site map lives on concepts.html · replace: the figure id and its title id, the caption; keep viewBox 0 0 960 600 and the empty concept-info div; drop ="page" from data-concept-map to show every term · runtime: concept map (force-directed layout from DATA.concepts, click a node for its definition and neighbours; zoom/pan from the diagram tools) · validator: glossary term "X": related "Y" is not a glossary term (warning) -->
+<figure class="diagram" id="c12-concept-map">
+  <svg data-concept-map="page" viewBox="0 0 960 600" role="img" aria-labelledby="c12-concept-map-t"><title id="c12-concept-map-t">Glossary terms defined on this page and the terms they are linked to</title></svg>
+  <figcaption><b>Figure 0.2 — Concepts of this page.</b> Each node is a glossary term; solid lines are curated <code>related</code> links from <code>assets/glossary.json</code>, dashed lines are terms mentioned in another term's definition. Click a node to read its definition; colour marks the group of the module that explains the term.</figcaption>
+  <div class="concept-info"></div>
+</figure>

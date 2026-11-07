@@ -1,0 +1,9 @@
+<!-- atlas-learn component: overview/widgets.html · use when: index.html only — the level-filtered curriculum map and the clickable site map (fallback when no thematic SVG is drawn) · replace: the intro sentences, the figure id and title id; keep the data- attributes and the map-filters id pairing · runtime: overview widgets (data-curriculum, data-sitemap render from the registry) · validator: none -->
+<p>Filter by learning level. Each card is a page from the registry in <code>assets/site.js</code>; it turns green once you mark the module complete at the bottom of its page, and progress is stored only in this browser.</p>
+<div class="map-filters" id="map-filters"></div>
+<div class="curriculum" data-curriculum="map-filters"></div>
+<figure class="diagram" id="fig-system-map">
+  <svg data-sitemap role="img" aria-labelledby="fig-system-map-t"><title id="fig-system-map-t">Site structure by group</title></svg>
+  <figcaption><b>Figure 0.1 — Site structure.</b> Groups read left to right in the order of the registry; colour marks the learning level. Click a block to open the page.</figcaption>
+  <div class="legend"><span class="lg-box">Clickable page</span></div>
+</figure>

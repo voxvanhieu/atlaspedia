@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Concept map</title>
+<meta name="description" content="How the glossary terms of the report relate to one another — curated related links and mentions found in definitions — rendered from assets/data.js.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<link rel="stylesheet" href="assets/style.css">
+<style>
+  #tbl-concepts td:first-child { min-width: 160px; }
+  #tbl-concepts small { color: var(--muted); }
+</style>
+</head>
+<body data-page="concepts.html">
+<main>
+  <header class="module-hero">
+    <div class="eyebrow">Reference · Concept map</div>
+    <h1>Concept map</h1>
+    <p class="lede">Every glossary term as a node. A solid line joins two terms when the glossary names one as <code>related</code> to the other; a dashed line when one term is mentioned in the other's definition. Click a node to read its definition and jump to the module that explains it.</p>
+    <dl class="meta-strip">
+      <div><dt>Concepts</dt><dd id="cm-term-count">—</dd></div>
+      <div><dt>Links</dt><dd id="cm-link-count">—</dd></div>
+      <div><dt>Source</dt><dd><code>assets/glossary.json</code> → <code>assets/data.js</code></dd></div>
+    </dl>
+  </header>
+
+  <section>
+    <h2 id="about">How to read it</h2>
+    <p>Colour marks the group of the module where a term is explained; a bigger node has more links. Zoom with the figure's buttons or <kbd>Ctrl</kbd>/<kbd>⌘</kbd>+scroll, drag to pan, double-click to reset. Terms that float alone at the edge are defined but never cross-referenced — a hint for the glossary's writer. The map is rebuilt from the pages by <code>build_site_data.py</code> (also run by <code>scaffold.py --sync</code>), so edit <code>assets/glossary.json</code>, not this page.</p>
+  </section>
+
+  <section>
+    <h2 id="map">Map</h2>
+    <figure class="diagram" id="fig-concept-map">
+      <svg data-concept-map viewBox="0 0 960 600" role="img" aria-labelledby="fig-concept-map-t"><title id="fig-concept-map-t">Concept map of every glossary term and the links between them</title></svg>
+      <figcaption><b>Figure CM.1 — Concept map.</b> Solid lines are curated <code>related</code> links from <code>assets/glossary.json</code>; dashed lines are terms mentioned in another term's definition. The layout is a force-directed simulation with a fixed seed: linked terms sit close, nothing else is encoded in the distances.</figcaption>
+      <div class="concept-info"></div>
+    </figure>
+  </section>
+
+  <section>
+    <h2 id="links">Links by term</h2>
+    <div class="table-wrap">
+      <div class="table-tools">
+        <span class="tt-title">All terms</span>
+        <input class="table-filter" data-target="tbl-concepts" placeholder="Filter terms…">
+        <select class="table-filter-select" data-target="tbl-concepts" data-col="3"><option value="">All groups</option></select>
+        <span class="tt-count" data-target="tbl-concepts"></span>
+      </div>
+      <table id="tbl-concepts" class="sortable">
+        <thead><tr><th>Term</th><th>Related</th><th>Mentions</th><th>Group</th></tr></thead>
+        <tbody></tbody>
+      </table>
+      <div class="table-note">Related links are written by hand in the glossary (<code>"related": ["Term", …]</code>); mentions are found automatically when a term's name appears in another definition.</div>
+    </div>
+  </section>
+
+  <section class="trust" data-reviewed="2026-11-07">
+    <h2 id="trust">Trust &amp; provenance</h2>
+    <div class="trust-stats" aria-live="polite"></div>
+    <details class="trust-assumptions"><summary>Assumptions and simplifications</summary>
+      <ul>
+        <li>Mentions are found by matching term names of four letters or more (plural allowed) inside definitions; they are hints, not curated links, and a term named in passing still counts.</li>
+        <li>The layout is a force-directed simulation with a fixed seed: the same data always gives the same picture, but distance carries no meaning beyond "linked terms sit close".</li>
+      </ul>
+    </details>
+  </section>
+</main>
+
+<script src="assets/site.js"></script>
+<script src="assets/glossary.js"></script>
+<script src="assets/data.js"></script>
+<script>
+// Runs before app.js (which is deferred) so the shared table filter/sort/count sees the rows; the map itself is drawn by app.js.
+(function () {
+  const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+  const D = (window.QC_DATA && window.QC_DATA.concepts) || {};
+  const nodes = (D.nodes || []).filter(n => n && n.id && n.term);
+  const edges = (D.edges || []).filter(e => e && e.a && e.b);
+  const site = window.SITE || {}, pages = site.pages || [];
+  const home = site.home || 'index.html', pagesDir = typeof site.pagesDir === 'string' ? site.pagesDir : '';
+  // this page sits under pagesDir (site layout) or at the root (flat); only the home page needs the climb back
+  const up = pagesDir && document.body.dataset.page !== home ? '../'.repeat(pagesDir.split('/').filter(Boolean).length) : '';
+  const link = n => n.page ? `<a href="${esc((n.page === home ? up : '') + n.page)}${n.anchor ? '#' + esc(n.anchor) : ''}">${esc(n.term)}</a>` : esc(n.term);
+  const byId = new Map(nodes.map(n => [n.id, n]));
+  const names = (id, kind) => edges.filter(e => e.kind === kind && (e.a === id || e.b === id)).map(e => byId.get(e.a === id ? e.b : e.a)).filter(Boolean).map(m => esc(m.term)).sort().join(', ');
+  document.querySelector('#tbl-concepts tbody').innerHTML = nodes.map(n =>
+    `<tr><td><b>${link(n)}</b></td><td>${names(n.id, 'related') || '<small>—</small>'}</td><td>${names(n.id, 'mentions') || '<small>—</small>'}</td><td>${esc(n.group || '—')}</td></tr>`
+  ).join('') || '<tr><td colspan="4"><small>No concept data yet — run build_site_data.py (or scaffold.py --sync) once the glossary exists.</small></td></tr>';
+  document.getElementById('cm-term-count').textContent = nodes.length;
+  document.getElementById('cm-link-count').textContent = edges.length;
+})();
+</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+<script defer src="assets/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Indexes</title>
+<meta name="description" content="Figures, tables, equations, code listings and concepts A–Z across the report, generated from the pages into assets/data.js.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body data-page="indexes.html">
+<main>
+  <header class="module-hero">
+    <div class="eyebrow">Reference · Indexes</div>
+    <h1>Indexes</h1>
+    <p class="lede">Every figure, table, equation, code listing and defined concept in the report, with the page and section where it lives. Built from the pages by <code>build_site_data.py</code>; the same data feeds the site search (press <kbd>/</kbd>).</p>
+    <dl class="meta-strip">
+      <div><dt>Figures</dt><dd id="ix-count-figures">—</dd></div>
+      <div><dt>Tables</dt><dd id="ix-count-tables">—</dd></div>
+      <div><dt>Equations</dt><dd id="ix-count-equations">—</dd></div>
+      <div><dt>Code</dt><dd id="ix-count-code">—</dd></div>
+      <div><dt>Concepts</dt><dd id="ix-count-concepts">—</dd></div>
+      <div><dt>Source</dt><dd><code>assets/data.js</code></dd></div>
+    </dl>
+  </header>
+
+  <section>
+    <h2 id="about">How to use</h2>
+    <p>Pick a tab, then type in the filter box to match any part of a caption, title, label, first line of code or term; every entry links to its page and section. Concepts list the glossary terms and every <code>&lt;dfn&gt;</code> definition on the pages, A–Z. Regenerate the data with <code>python &lt;PLUGIN_ROOT&gt;/scripts/build_site_data.py &lt;site&gt;</code> (also run by <code>scaffold.py --sync</code>) whenever pages change.</p>
+  </section>
+
+  <section>
+    <h2 id="indexes">Figures, tables, equations, code and concepts</h2>
+    <div class="indexes" data-indexes></div>
+  </section>
+
+  <section class="trust" data-reviewed="2026-11-07">
+    <h2 id="trust">Trust &amp; provenance</h2>
+    <div class="trust-stats" aria-live="polite"></div>
+    <details class="trust-assumptions"><summary>Assumptions and simplifications</summary>
+      <ul><li>The indexes are generated from the pages' markup: a figure without a caption, a table without a title or an equation box without an id is listed by its section instead of a name.</li></ul>
+    </details>
+  </section>
+</main>
+
+<script src="assets/site.js"></script>
+<script src="assets/glossary.js"></script>
+<script src="assets/data.js"></script>
+<script>
+// Runs before app.js (which is deferred): fills the hero counts from the generated data.
+(function () {
+  const ix = (window.QC_DATA && window.QC_DATA.indexes) || {};
+  ['figures', 'tables', 'equations', 'code', 'concepts'].forEach(k => { const d = document.getElementById('ix-count-' + k); if (d) d.textContent = Array.isArray(ix[k]) ? ix[k].length : 0; });
+})();
+</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+<script defer src="assets/app.js"></script>
+</body>
+</html>

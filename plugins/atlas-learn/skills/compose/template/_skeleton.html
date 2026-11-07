@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Page Title</title>
+<meta name="description" content="One sentence: what this page of the [Site title] interactive research report covers.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body data-page="page.html">
+<!--
+  LECTERN PAGE SKELETON — the bare frame. For a real page copy the kind skeleton instead:
+    _module.html     learning module (objectives … exercises … deliverable)
+    _synthesis.html  project, stacks, matrices, research questions, roadmap
+    _reference.html  bibliography and other table pages
+  1. Set <title>, the description, data-page (must equal the file name) and the hero.
+  2. Register the page in SITE_PLAN.md / assets/site.json (scaffold.py --sync regenerates site.js). Keep every <h2> with a stable id.
+  3. app.js injects the top bar, sidebar, on-page TOC, search, pager, "mark complete" and footnote. Do not write them.
+  4. The trust footer (section.trust) stays the LAST section; set data-reviewed to the day you wrote the page.
+  5. Page-specific JavaScript goes in the single qc:ready handler at the end.
+  6. Evidence (references/evidence-policy.md): every fact and number cites the dossier; every figure and demo carries
+     data-cite="#ref-…" (or a caption cite) and implements only documented relationships and calculations; every
+     GAP marker comment has a visible badge beside it (badge unavailable | not-specified | insufficient). validate.py checks it.
+-->
+<main>
+  <header class="module-hero">
+    <div class="eyebrow">Group name · Page kind</div>
+    <h1>Page Title</h1>
+    <p class="lede">One or two sentences: what this page covers and why it matters.</p>
+  </header>
+
+  <section>
+    <h2 id="introduction">Introduction</h2>
+    <p>…</p>
+  </section>
+
+  <!-- further sections: <section><h2 id="…">…</h2> … </section> -->
+
+  <section class="trust" data-reviewed="2026-11-07">
+    <h2 id="trust">Trust &amp; provenance</h2>
+    <div class="trust-stats" aria-live="polite"></div>
+    <details class="trust-assumptions"><summary>Assumptions and simplifications</summary>
+      <ul><li>One line per assumption the page's demos and numbers rest on.</li></ul></details>
+    <details class="trust-gaps"><summary>Open gaps</summary>
+      <ul><li>page#section: what is missing — delete this whole details block when there are none.</li></ul></details>
+  </section>
+</main>
+
+<script src="assets/site.js"></script>
+<script src="assets/glossary.js"></script>
+<script src="assets/data.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+<script defer src="assets/app.js"></script>
+<script>
+document.addEventListener('qc:ready', () => {
+  // page-specific interactive code goes here (QC.plot, QC.bindControls, QC.fmt, QC.onTheme, QC.store …)
+});
+</script>
+</body>
+</html>

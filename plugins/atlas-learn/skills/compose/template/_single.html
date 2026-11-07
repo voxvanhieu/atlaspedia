@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Guide Title</title>
+<meta name="description" content="A single-page interactive guide to [topic].">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body data-page="index.html">
+<!--
+  LECTERN SINGLE-PAGE SKELETON (page kind: single) — copy to <siteDir>/index.html (the only page; site.json "mode": "single"), then:
+  1. Set <title>, the description and the hero. data-page stays "index.html".
+  2. Required, in this order: #summary · (optional #map) · one section.part per brief module / synthesis part, in the brief's order,
+     with data-part="M01"… and an h2 id (m01-short-slug) · #checkpoints (4–8 quizzes) · (optional #exercises, 2–4) · #glossary
+     (the data-glossary widget — write assets/glossary.json when GLOSSARY=yes, then run scaffold.py <siteDir> --sync) ·
+     #references (every source of the page in ONE ol.refs, cited from the parts with a.cite) · section.trust LAST.
+  3. Budget: about 250 KB of HTML for the whole page (site.json budgetKb); each part ≈ budget ÷ parts. A part keeps the concepts,
+     one key equation set (.math5), one diagram, one worked example (.callout.case) and the pitfalls; long derivations go in at
+     most one <details>; at most one demo per part.
+  4. app.js injects the top bar, the sidebar (here: this page's contents), search and the footnote. Do not write them.
+  5. bundle.py later inlines assets/ into one self-contained file; keep every include exactly as below.
+  6. Put page-specific JavaScript in the single qc:ready handler at the end.
+  7. Evidence (references/evidence-policy.md): every fact and number cites the dossier; every figure and demo carries
+     data-cite="#ref-…" (or a caption cite) and implements only documented relationships and calculations; every
+     GAP marker comment has a visible badge beside it (badge unavailable | not-specified | insufficient). validate.py checks it.
+-->
+<main>
+  <header class="module-hero home-hero">
+    <div class="eyebrow">Single-page guide · Topic name</div>
+    <h1>Guide Title</h1>
+    <p class="lede">One or two sentences: what this guide gives the reader and why it matters. <!-- fill: from the brief's mission --></p>
+    <dl class="meta-strip">
+      <div><dt>Reading time</dt><dd>≈ 45 min</dd></div>
+      <div><dt>Level</dt><dd>Beginner → practitioner</dd></div>
+      <div><dt>Parts</dt><dd>2</dd></div>
+      <div><dt>Deliverable</dt><dd>What the reader can produce after reading</dd></div>
+    </dl>
+  </header>
+
+  <section>
+    <h2 id="summary">In one page</h2>
+    <!-- fill: 3–6 capabilities the reader gains (from the plan's "Done when"), then 3–6 key takeaways, each linking to its part -->
+    <ol class="objectives">
+      <li>Explain …</li>
+      <li>Compute …</li>
+      <li>Choose …</li>
+    </ol>
+    <div class="grid-3">
+      <div class="card finding"><span class="f-num">01</span><div><b>First takeaway.</b><p>One sentence. <a class="xref" href="#m01-first-part">Part 01</a></p></div></div>
+      <div class="card finding"><span class="f-num">02</span><div><b>Second takeaway.</b><p>One sentence. <a class="xref" href="#m02-second-part">Part 02</a></p></div></div>
+      <div class="card finding"><span class="f-num">03</span><div><b>Third takeaway.</b><p>One sentence. <a class="xref" href="#checkpoints">Check yourself</a></p></div></div>
+    </div>
+  </section>
+
+  <!-- optional: <section><h2 id="map">Map</h2> figure.diagram whose boxes link to the parts (#m01-…) </section> -->
+
+  <section class="part" data-part="M01">
+    <h2 id="m01-first-part">01 · First part title</h2>
+    <p>Why this part matters and where it sits. <!-- fill: from the M01 dossier file and its "### Page" block --></p>
+    <h3 id="m01-core-idea">Core idea</h3>
+    <p>…</p>
+    <!-- fill: one .math5 block for the key equation set, one figure.diagram, one .callout.case worked example with the running-example numbers -->
+    <div class="callout mistakes"><span class="callout-title">Pitfalls</span><ul><li>Symptom → cause → fix.</li></ul></div>
+    <p class="part-more">Go deeper: <a class="cite" href="#ref-key">[1]</a></p>
+  </section>
+
+  <section class="part" data-part="M02">
+    <h2 id="m02-second-part">02 · Second part title</h2>
+    <p>…</p>
+    <h3 id="m02-in-practice">In practice</h3>
+    <p>…</p>
+    <p class="part-more">Go deeper: <a class="cite" href="#ref-key">[1]</a></p>
+  </section>
+
+  <section>
+    <h2 id="checkpoints">Check yourself</h2>
+    <!-- fill: 4–8 quizzes across the parts; data-answer is the 0-based index of the correct option -->
+    <div class="quiz" data-answer="0">
+      <p class="q">Question?</p>
+      <ol class="opts"><li>Correct option</li><li>Distractor</li><li>Distractor</li></ol>
+      <div class="explain">Why the answer is correct.</div>
+    </div>
+  </section>
+
+  <section>
+    <h2 id="exercises">Exercises</h2>
+    <!-- optional: 2–4 exercises; delete this section when the brief asks for none -->
+    <div class="exercise" id="ex-1" data-difficulty="2">
+      <div class="exercise-head"><span class="exercise-label">Exercise 1</span><span class="exercise-diff" aria-label="difficulty 2 of 3"></span><span class="badge neutral">≈ 15 min</span></div>
+      <p>Problem statement, with the numbers to use.</p>
+      <details class="hint"><summary>Hint 1</summary><p>…</p></details>
+      <details class="solution"><summary>Solution</summary><p>Worked solution.</p></details>
+    </div>
+  </section>
+
+  <section>
+    <h2 id="glossary">Glossary</h2>
+    <!-- rendered from assets/glossary.json (entries {term, aka?, def, page: "index.html", anchor?}); never hand-write the list -->
+    <div class="glossary-inline" data-glossary></div>
+  </section>
+
+  <section>
+    <h2 id="references">References</h2>
+    <!-- fill: 8–25 entries from the dossier, each with "why read it", a status badge and the verified badge on ✓ rows -->
+    <ol class="refs">
+      <li id="ref-key"><span class="ref-authors">Author</span> (Year). <a href="https://doi.org/…">Title</a>. <span class="ref-venue">Venue</span> <span class="badge established">Foundational</span><span class="why">Why it is worth reading.</span></li>
+    </ol>
+  </section>
+
+  <section class="trust" data-reviewed="2026-11-07">
+    <h2 id="trust">Trust &amp; provenance</h2>
+    <div class="trust-stats" aria-live="polite"></div>
+    <details class="trust-assumptions"><summary>Assumptions and simplifications</summary>
+      <ul><li>One line per assumption the page's demos and numbers rest on.</li></ul></details>
+    <details class="trust-gaps"><summary>Open gaps</summary>
+      <ul><li>index.html#section: what is missing — delete this whole details block when there are none.</li></ul></details>
+  </section>
+</main>
+
+<script src="assets/site.js"></script>
+<script src="assets/glossary.js"></script>
+<script src="assets/data.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+<script defer src="assets/app.js"></script>
+<script>
+document.addEventListener('qc:ready', () => {
+  // page-specific interactive code goes here (QC.plot, QC.bindControls, QC.fmt, QC.onTheme, QC.store …)
+});
+</script>
+</body>
+</html>

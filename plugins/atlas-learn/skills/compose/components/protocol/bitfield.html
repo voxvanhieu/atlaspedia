@@ -1,0 +1,24 @@
+<!-- atlas-learn component: protocol/bitfield.html · use when: a register layout, a packet header or a frame format the reader must decode bit by bit or byte by byte · replace: the figure id, the JSON (fields in order with name and bits; type "reserved" or a fill 2–9; attr under the box; lanes = bits per row; msbFirst for network order; unit "byte" for a packet frame), the caption · runtime: protocol (JSON to SVG in the shell phase, then diagrams: zoom, pan, fullscreen, SVG/PNG download) · validator: bitfield …: invalid JSON · bits must be a whole number above 0 · n bits do not fill rows of m (warning) -->
+<figure class="bitfield" id="fig-ipv4-header" data-cite="#ref-placeholder">
+  <script type="application/json">
+{ "lanes": 32, "msbFirst": true,
+  "fields": [
+    { "name": "Version", "bits": 4, "attr": "4", "type": 3 },
+    { "name": "IHL", "bits": 4, "attr": "5 words", "type": 3 },
+    { "name": "DSCP", "bits": 6 },
+    { "name": "ECN", "bits": 2 },
+    { "name": "Total Length", "bits": 16, "attr": "bytes, header + data" },
+    { "name": "Identification", "bits": 16 },
+    { "bits": 1, "type": "reserved" },
+    { "name": "DF", "bits": 1, "type": 4 },
+    { "name": "MF", "bits": 1, "type": 4 },
+    { "name": "Fragment Offset", "bits": 13, "attr": "× 8 bytes" },
+    { "name": "Time to Live", "bits": 8, "attr": "hops" },
+    { "name": "Protocol", "bits": 8, "attr": "6 = TCP, 17 = UDP" },
+    { "name": "Header Checksum", "bits": 16 },
+    { "name": "Source Address", "bits": 32, "type": 5 },
+    { "name": "Destination Address", "bits": 32, "type": 5 }
+  ] }
+  </script>
+  <figcaption><b>Figure 5.1 — The 20-byte IPv4 header without options (RFC 791).</b> Bits are numbered from 0 at the most significant end of each 32-bit word, as the RFC draws them; the left column gives the byte offset of each row. The grey bit before DF is reserved and must be zero.</figcaption>
+</figure>

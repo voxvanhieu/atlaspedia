@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Glossary</title>
+<meta name="description" content="Searchable glossary of the terminology used across the report, rendered from assets/glossary.js.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<link rel="stylesheet" href="assets/style.css">
+<style>
+  .az { display: flex; flex-wrap: wrap; gap: 4px; margin: 1rem 0; font-family: var(--font-ui); }
+  .az a { display: inline-grid; place-items: center; min-width: 30px; height: 30px; padding: 0 6px; border: 1px solid var(--line); border-radius: 6px; background: var(--surface); text-decoration: none; font-size: .82rem; color: var(--ink-2); }
+  .az a:hover { border-color: var(--accent); color: var(--accent); }
+  .az span { display: inline-grid; place-items: center; min-width: 30px; height: 30px; color: var(--line-2); font-size: .82rem; }
+  #tbl-glossary td:first-child { min-width: 160px; }
+  #tbl-glossary small { color: var(--muted); }
+  #tbl-glossary .gl-local-col { min-width: 160px; }
+  #tbl-glossary td.gl-local-col b { font-weight: 500; color: var(--accent); }
+</style>
+</head>
+<body data-page="glossary.html">
+<main>
+  <header class="module-hero">
+    <div class="eyebrow">Reference · Glossary</div>
+    <h1>Glossary of terms</h1>
+    <p class="lede">Every defined term in the report, with the module where it is explained. The same data powers the site-wide search (press <kbd>/</kbd>).</p>
+    <dl class="meta-strip">
+      <div><dt>Terms</dt><dd id="term-count">—</dd></div>
+      <div><dt>Source</dt><dd><code>assets/glossary.js</code></dd></div>
+    </dl>
+  </header>
+
+  <section>
+    <h2 id="about">How to use</h2>
+    <p>Type in the filter box to match any part of a term, its expansion or its definition; restrict by module with the drop-down; click a column header to sort. Letters without entries are greyed out in the jump bar. When the site carries a second language (<code>site.json</code> <code>secondLanguage</code>), a further column shows each term in it and the filter matches that too.</p>
+    <nav class="az" id="az" aria-label="Jump to letter"></nav>
+  </section>
+
+  <section>
+    <h2 id="terms">Terms</h2>
+    <div class="table-wrap">
+      <div class="table-tools">
+        <span class="tt-title">All terms</span>
+        <input class="table-filter" data-target="tbl-glossary" placeholder="Filter terms…">
+        <select class="table-filter-select" data-target="tbl-glossary" data-col="2"><option value="">All modules</option></select>
+        <span class="tt-count" data-target="tbl-glossary"></span>
+      </div>
+      <table id="tbl-glossary" class="sortable">
+        <thead><tr><th>Term</th><th>Definition</th><th>Module</th></tr></thead>
+        <tbody></tbody>
+      </table>
+      <div class="table-note">Definitions are deliberately short; follow the module link for derivations, context and references.</div>
+    </div>
+  </section>
+
+  <section>
+    <h2 id="flashcards">Flashcards</h2>
+    <p>Practise the same terms one card at a time. Flip a card with <kbd>Space</kbd> or a click, then answer <kbd>1</kbd> Again or <kbd>2</kbd> Good: a card you know moves up a box and comes back after 1, 3, 7 and then 14 days, a card you missed returns this round. Your progress stays in this browser. <em>CSV</em> and <em>Anki</em> download the deck to study elsewhere.</p>
+    <div class="flashcards" id="fc-glossary" data-flashcards="all"></div>
+  </section>
+</main>
+
+<script src="assets/site.js"></script>
+<script src="assets/glossary.js"></script>
+<script src="assets/data.js"></script>
+<script>
+// Runs before app.js (which is deferred) so the shared table filter/sort/count sees the rows.
+(function () {
+  const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+  const G = (window.QC_GLOSSARY || []).slice().sort((a, b) => a.term.localeCompare(b.term, undefined, { sensitivity: 'base' }));
+  const pages = (window.SITE && window.SITE.pages) || [];
+  const title = f => { const p = pages.find(p => p.file === f); return p ? p.num + ' · ' + p.title : f; };
+  // F3 bilingual glossary: a "Term (<secondLanguage>)" column when any entry carries term_local (def_local below it); both are filterable
+  const lang = (window.SITE && typeof window.SITE.secondLanguage === 'string' && window.SITE.secondLanguage.trim()) || '';
+  const bilingual = G.some(g => typeof g.term_local === 'string' && g.term_local.trim());
+  if (bilingual) {
+    const th = document.createElement('th'); th.className = 'gl-local-col'; th.textContent = 'Term (' + (lang || 'second language') + ')';
+    document.querySelector('#tbl-glossary thead th').after(th);
+    const sel = document.querySelector('select.table-filter-select[data-target="tbl-glossary"]'); if (sel) sel.dataset.col = '3';
+  }
+  const local = g => bilingual ? `<td class="gl-local-col">${g.term_local ? `<b>${esc(g.term_local)}</b>` : '—'}${g.def_local ? `<br><small>${esc(g.def_local)}</small>` : ''}</td>` : '';
+  const seen = new Set();
+  document.querySelector('#tbl-glossary tbody').innerHTML = G.map(g => {
+    const L = g.term[0].toUpperCase(); const first = /[A-Z]/.test(L) && !seen.has(L); if (first) seen.add(L);
+    return `<tr${first ? ` id="letter-${L}"` : ''}><td><b>${esc(g.term)}</b>${g.aka ? `<br><small>${esc(g.aka)}</small>` : ''}</td>${local(g)}<td>${esc(g.def)}</td><td>${g.page ? `<a href="${esc(g.page)}${g.anchor ? '#' + esc(g.anchor) : ''}">${esc(title(g.page))}</a>` : '—'}</td></tr>`;
+  }).join('');
+  document.getElementById('term-count').textContent = G.length;
+  document.getElementById('az').innerHTML = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('').map(L => seen.has(L) ? `<a href="#letter-${L}">${L}</a>` : `<span>${L}</span>`).join('');
+})();
+</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+<script defer src="assets/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Module Title</title>
+<meta name="description" content="Module NN of the [Site title] interactive research report.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body data-page="mNN-slug.html">
+<!--
+  LECTERN MODULE PAGE SKELETON (page kind: module) — copy to <pagesDir>/<file>.html, then:
+  1. Set <title>, the description, data-page (must equal the file name) and the hero.
+  2. Register the page in SITE_PLAN.md / assets/site.json (scaffold.py --sync regenerates site.js).
+  3. Keep every <h2> with a stable id — other pages link to them. Required ids, in this order:
+     objectives · introduction · technical sections (one h2 per topic group) · mathematical formulation (.math5)
+     · architecture diagrams (figure.diagram SVG) · practical examples · implementation examples (code)
+     · running-example case study (.callout.case) · comparison tables · #mistakes · #reading · #checkpoints · #exercises · #deliverable · trust
+  4. app.js injects the top bar, sidebar, on-page TOC, search, pager, "mark complete" and footnote. Do not write them.
+  5. The trust footer (section.trust) stays the LAST section; set data-reviewed to the day you wrote the page and mark every
+     verified reference in #reading with <span class="badge verified">Verified</span>.
+  6. Put page-specific JavaScript in the single qc:ready handler at the end.
+  7. Evidence (references/evidence-policy.md): every fact and number cites the dossier; every figure and demo carries
+     data-cite="#ref-…" (or a caption cite) and implements only documented relationships and calculations; every
+     GAP marker comment has a visible badge beside it (badge unavailable | not-specified | insufficient). validate.py checks it.
+-->
+<main>
+  <header class="module-hero">
+    <div class="eyebrow">Module NN · Group name · Level N</div>
+    <h1>Module Title</h1>
+    <p class="lede">One or two sentences: what this module teaches and why it matters.</p>
+    <dl class="meta-strip">
+      <div><dt>Difficulty</dt><dd><span class="diff" data-level="3"><i></i><i></i><i></i><i></i><i></i></span></dd></div>
+      <div><dt>Study time</dt><dd>≈ 20–30 h</dd></div>
+      <div><dt>Prerequisites</dt><dd><a href="m01-slug.html">M01</a></dd></div>
+      <div><dt>Deliverable</dt><dd>What the reader can produce after this module</dd></div>
+    </dl>
+  </header>
+
+  <section>
+    <h2 id="objectives">Learning objectives</h2>
+    <ol class="objectives">
+      <li>…</li>
+      <li>…</li>
+    </ol>
+    <div class="keywords"><span>term</span><span>term</span></div>
+  </section>
+
+  <section>
+    <h2 id="introduction">Conceptual introduction</h2>
+    <p>…</p>
+  </section>
+
+  <!-- technical sections: <section><h2 id="…">…</h2> … </section> -->
+
+  <section>
+    <h2 id="mistakes">Common engineering mistakes</h2>
+    <div class="callout mistakes"><span class="callout-title">Mistakes to avoid</span><ul><li>…</li></ul></div>
+  </section>
+
+  <section>
+    <h2 id="reading">Further reading</h2>
+    <ol class="refs">
+      <li id="ref-key"><span class="ref-authors">Author</span> (Year). <a href="https://doi.org/…">Title</a>. <span class="ref-venue">Venue</span> <span class="badge established">Foundational</span><span class="badge verified">Verified</span><span class="why">Why it is worth reading.</span></li>
+    </ol>
+  </section>
+
+  <section>
+    <h2 id="checkpoints">Knowledge checkpoints</h2>
+    <div class="quiz" data-answer="0">
+      <p class="q">Question?</p>
+      <ol class="opts"><li>Correct option</li><li>Distractor</li><li>Distractor</li></ol>
+      <div class="explain">Why the answer is correct.</div>
+    </div>
+  </section>
+
+  <section>
+    <h2 id="exercises">Exercises</h2>
+    <!-- 2–4 per module unless the brief says otherwise; delete the section only when the brief asks for no exercises -->
+    <div class="exercise" id="ex-NN-1" data-difficulty="2">
+      <div class="exercise-head"><span class="exercise-label">Exercise NN.1</span><span class="exercise-diff" aria-label="difficulty 2 of 3"></span><span class="badge neutral">≈ 20 min</span></div>
+      <p>Problem statement, with the numbers to use.</p>
+      <details class="hint"><summary>Hint 1</summary><p>…</p></details>
+      <details class="hint"><summary>Hint 2</summary><p>…</p></details>
+      <details class="solution"><summary>Solution</summary><p>Worked solution; may contain .math5 blocks, code and tables.</p></details>
+    </div>
+  </section>
+
+  <section>
+    <h2 id="deliverable">Deliverable</h2>
+    <p>…</p>
+  </section>
+
+  <section class="trust" data-reviewed="2026-11-07">
+    <h2 id="trust">Trust &amp; provenance</h2>
+    <div class="trust-stats" aria-live="polite"></div>
+    <details class="trust-assumptions"><summary>Assumptions and simplifications</summary>
+      <ul><li>One line per assumption the page's demos and numbers rest on.</li></ul></details>
+    <details class="trust-gaps"><summary>Open gaps</summary>
+      <ul><li>page#section: what is missing — delete this whole details block when there are none.</li></ul></details>
+  </section>
+</main>
+
+<script src="assets/site.js"></script>
+<script src="assets/glossary.js"></script>
+<script src="assets/data.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+<script defer src="assets/app.js"></script>
+<script>
+document.addEventListener('qc:ready', () => {
+  // page-specific interactive code goes here (QC.plot, QC.bindControls, QC.fmt, QC.onTheme, QC.store …)
+});
+</script>
+</body>
+</html>

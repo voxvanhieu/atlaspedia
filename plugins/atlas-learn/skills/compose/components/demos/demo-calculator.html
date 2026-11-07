@@ -1,0 +1,22 @@
+<!-- atlas-learn component: demos/demo-calculator.html · use when: a formula with ≥ 2 parameters the reader should feel, or an algorithm best understood by running it · replace: the demo and canvas ids, the controls (their ids are the keys of v in the handler), the presets (data-state names those ids), readout ids, title, demo-note and cite; the handler body is demo-calculator.js · runtime: plotting helper, bindControls (output[for] bound automatically, state in the URL hash, presets), demo menu (copy, export, link, sensitivity, reset) · validator: output for has no input; preset names unknown input; preset defined twice; inline-script syntax -->
+<div class="demo" id="demo-budget">
+  <div class="demo-head"><h4>Single page or full site? The size budget</h4><span class="badge illustrative">Model output</span></div>
+  <div class="demo-body">
+    <div class="demo-controls">
+      <div class="demo-presets"><button type="button" data-preset="fits" data-state="parts=5&partkb=30&budget=250&frame=40">Small topic</button><button type="button" data-preset="over" data-state="parts=9&partkb=40&budget=250&frame=40">Over budget</button></div>
+      <div class="ctl"><label for="parts">Parts n</label><output for="parts"></output><input type="range" id="parts" min="1" max="16" step="1" value="7" data-decimals="0"></div>
+      <div class="ctl"><label for="partkb">Size per part</label><output for="partkb"></output><input type="range" id="partkb" min="10" max="60" step="1" value="38" data-decimals="0" data-unit="KB"></div>
+      <div class="ctl"><label for="budget">Budget B</label><output for="budget"></output><input type="range" id="budget" min="150" max="400" step="10" value="250" data-decimals="0" data-unit="KB"></div>
+      <div class="ctl"><label for="frame">Frame F</label><output for="frame"></output><input type="range" id="frame" min="20" max="60" step="5" value="40" data-decimals="0" data-unit="KB"></div>
+    </div>
+    <div class="demo-output">
+      <canvas id="demo-budget-canvas"></canvas>
+      <div class="readouts">
+        <div class="readout"><div class="r-label">Allowance per part</div><div class="r-val" id="ro-allow">—</div></div>
+        <div class="readout"><div class="r-label">Page size</div><div class="r-val" id="ro-total">—</div></div>
+        <div class="readout" id="ro-verdict-wrap"><div class="r-label">Verdict</div><div class="r-val" id="ro-verdict">—</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="demo-note">Model: page size \( S = F + n\,s \) against the budget \( B \); allowance per part \( (B - F)/n \). Not modelled: parts of different sizes, images and media (they load from the web and do not count), the compression a browser applies. Rule from the compose skill's single-page plan <a class="cite" href="#ref-atlas-learn-docs">[4]</a>; the agents behind it follow <a class="cite" href="#ref-claude-subagents">[1]</a>. The presets are the two cases the compose skill asks about; the ⋯ menu copies the readouts, exports the curve, links to the current inputs and tabulates the sensitivity.</div>
+</div>

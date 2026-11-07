@@ -1,0 +1,10 @@
+{
+  "name": "atlas-learn",
+  "description": "Learn a topic in three stages: collect your insight (adaptive interview), research it online into a verified dossier, compose an interactive documentation site. Main agent orchestrates; subagents work through a markdown system under topics/<slug>/tmp/, a short topics/<slug>/PLAN.md, and a root dictionary of all topics.",
+  "version": "0.1.0",
+  "author": {
+    "name": "voxvanhieu"
+  },
+  "license": "MIT",
+  "repository": "https://github.com/voxvanhieu/atlas-learn"
+}

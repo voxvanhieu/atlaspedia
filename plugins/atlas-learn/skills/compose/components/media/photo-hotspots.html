@@ -1,0 +1,9 @@
+<!-- atlas-learn component: media/photo-hotspots.html · use when: a photo has parts the reader must find — a board, an instrument, a map sheet, a statue — and each part needs a short label; also the lightbox every photo gets · replace: src, alt, caption and credit as in photo.html; one li per pin with data-x and data-y in percent of the picture (left and top) and a bold label before the dash; keep data-hotspots on the figure; add data-nolightbox to a photo that must not open full size · runtime: photo hotspots (numbered pins with tooltips, the list stays as the legend) and the lightbox (click the picture or the corner button; Esc, ← →) · validator: hotspot without data-x/data-y; hotspot data-x 140 outside 0..100; photo … has data-hotspots but no ul.hotspots -->
+<figure class="photo" id="c10-farnese-atlas-learn" data-hotspots>
+  <img src="https://upload.wikimedia.org/wikipedia/commons/8/8e/Atlas_%28Farnese_Globe%29.jpg" alt="The Farnese Atlas: a marble statue of the Titan Atlas kneeling with the celestial globe on his shoulders" loading="lazy">
+  <ul class="hotspots">
+    <li data-x="52" data-y="20"><b>Celestial globe</b> — about 65 cm across, carved with the constellation figures and the circles of the sky: equator, tropics, ecliptic and colures. It is the oldest surviving depiction of the Greek constellations.</li>
+    <li data-x="48" data-y="58"><b>Atlas</b> — the Titan kneels under the weight; the plugin takes its name from him because his globe is the first map every projection has to flatten.</li>
+  </ul>
+  <figcaption><b>Figure 1.2 — Reading the Farnese Atlas.</b> Hover, tap or focus a pin to read what it marks; the numbered list below is the legend. Click the picture to see it full size. <span class="credit">Source: <a href="https://commons.wikimedia.org/wiki/File:Atlas_(Farnese_Globe).jpg">Wikimedia Commons, Gabriel Seah</a>, CC BY-SA 3.0</span></figcaption>
+</figure>

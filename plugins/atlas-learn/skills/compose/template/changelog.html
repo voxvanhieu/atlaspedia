@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Changelog</title>
+<meta name="description" content="What changed in this site and when: every build and fix round, newest first, rendered from assets/changelog.json via assets/data.js.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body data-page="changelog.html">
+<main>
+  <header class="module-hero">
+    <div class="eyebrow">Reference · Changelog</div>
+    <h1>Changelog</h1>
+    <p class="lede">Every build and fix round of this site leaves one entry here, newest first: the date, the site version, what changed and which pages were touched. A page named in an entry shows <em>last change</em> with that date in its trust footer; every page footer carries the current version.</p>
+    <dl class="meta-strip">
+      <div><dt>Version</dt><dd data-version>—</dd></div>
+      <div><dt>Entries</dt><dd id="cl-count">—</dd></div>
+      <div><dt>Source</dt><dd><code>assets/changelog.json</code> → <code>assets/data.js</code></dd></div>
+    </dl>
+  </header>
+
+  <section>
+    <h2 id="about">How to read it</h2>
+    <p>An entry is one line of <code>assets/changelog.json</code>: <code>{ "date": "YYYY-MM-DD", "version": "1.0", "note": "…", "pages": ["m01-….html"] }</code>. The compose stage appends one when a site is first built and one per fix round; a maintainer appends one by hand after editing pages, then runs <code>scaffold.py --sync</code> so <code>assets/data.js</code> and the footer stamps follow. The version comes from the site plan's <code>Version</code> header (<code>site.json</code> <code>version</code>); bump it with every entry that changes content.</p>
+  </section>
+
+  <section>
+    <h2 id="entries">Entries</h2>
+    <div class="changelog" data-changelog></div>
+  </section>
+
+  <section class="trust" data-reviewed="2026-11-07">
+    <h2 id="trust">Trust &amp; provenance</h2>
+    <div class="trust-stats" aria-live="polite"></div>
+    <details class="trust-assumptions"><summary>Assumptions and simplifications</summary>
+      <ul>
+        <li>Entries are written at stage close and by maintainers; a page edited by hand without an entry is invisible here, and its trust footer keeps the older <em>last change</em> date.</li>
+      </ul>
+    </details>
+  </section>
+</main>
+
+<script src="assets/site.js"></script>
+<script src="assets/glossary.js"></script>
+<script src="assets/data.js"></script>
+<script>
+// Runs before app.js (which is deferred): the entry count for the hero; app.js renders the list and the version.
+(function () {
+  const D = (window.QC_DATA && window.QC_DATA.changelog) || {};
+  const entries = Array.isArray(D.entries) ? D.entries : [];
+  document.getElementById('cl-count').textContent = entries.length;
+})();
+</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+<script defer src="assets/app.js"></script>
+</body>
+</html>

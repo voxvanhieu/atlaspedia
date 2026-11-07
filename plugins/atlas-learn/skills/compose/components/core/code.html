@@ -1,0 +1,13 @@
+<!-- atlas-learn component: core/code.html · use when: the reader will implement it — realistic, commented code; label it "example" when it was not run · replace: the language class (c cpp python rust bash yaml json verilog matlab javascript) and the code; escape < as &lt; and & as &amp; · runtime: code blocks (language label, Copy button, highlight.js when online) · validator: none -->
+<pre><code class="language-python">import re
+import subprocess
+
+def run_gate(script, *args):
+    """Run an atlas-learn gate script and return its RESULT fields (example, not the plugin's own code)."""
+    proc = subprocess.run(["python", script, *args], capture_output=True, text=True)
+    lines = [l for l in proc.stdout.splitlines() if l.startswith("RESULT:")]
+    if not lines:                                   # no RESULT line: treat it as a failed gate
+        return {"status": "FAIL", "exit": proc.returncode}
+    fields = dict(re.findall(r"(\w+)=(\S+)", lines[-1]))
+    fields["exit"] = proc.returncode                # 1 on FAIL, 0 on PASS
+    return fields                                   # flip the plan row only when status == "PASS"</code></pre>

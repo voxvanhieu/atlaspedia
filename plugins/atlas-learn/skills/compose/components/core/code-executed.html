@@ -1,0 +1,17 @@
+<!-- atlas-learn component: core/code-executed.html · use when: a code example you actually ran — the real output is pasted below it and the block earns the "Executed" badge; never set data-executed on code you did not run · replace: data-executed (the date you ran it), data-env (interpreter or tool and version), the code, and the output in pre.output verbatim (escape < as &lt; and & as &amp; in both) · runtime: code blocks (language label, Copy button) + executed badge (span.badge.executed "Executed <date> · <env>") · validator: executed example without an output block; data-executed … is not a date; output block without an executed example (warning) -->
+<pre data-executed="2026-11-07" data-env="Python 3.13.17"><code class="language-python">import math
+
+R = 6371.0088                                   # mean Earth radius in km (the sphere every module assumes)
+CITIES = {"Hanoi": (21.03, 105.85), "Nuuk": (64.18, -51.72)}
+
+def mercator(lat_deg, lon_deg, lon0_deg=0.0):
+    """Spherical Mercator forward equations: x = R (lambda - lambda0), y = R ln tan(pi/4 + phi/2)."""
+    lat, dlon = math.radians(lat_deg), math.radians(lon_deg - lon0_deg)
+    return R * dlon, R * math.log(math.tan(math.pi / 4 + lat / 2))
+
+for name, (lat, lon) in CITIES.items():
+    x, y = mercator(lat, lon)
+    k = 1 / math.cos(math.radians(lat))         # scale factor sec(phi): lengths grow by k, areas by k squared
+    print(f"{name:&lt;6} x = {x:8.1f} km   y = {y:7.1f} km   k = {k:.3f}   area x {k * k:.2f}")</code></pre>
+<pre class="output"><samp>Hanoi  x =  11770.0 km   y =  2392.8 km   k = 1.071   area x 1.15
+Nuuk   x =  -5751.0 km   y =  9385.1 km   k = 2.296   area x 5.27</samp></pre>

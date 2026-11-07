@@ -1,0 +1,24 @@
+<!-- atlas-learn component: core/table.html · use when: ≥ 5 rows the reader compares or looks up (components, algorithms, simulators, FMEA, bibliography); plain table.compact for small static tables · replace: the table id (and every data-target), title, columns, rows, data-sort keys, the note · runtime: tables (filter input, select filters, sort, count, horizontal scroll) · validator: table tool targets missing id -->
+<div class="table-wrap">
+  <div class="table-tools">
+    <span class="tt-title">atlas-learn subagents</span>
+    <input class="table-filter" data-target="tbl-agents" placeholder="Filter…">
+    <select class="table-filter-select" data-target="tbl-agents" data-col="2"><option value="">All models</option></select>
+    <span class="tt-count" data-target="tbl-agents"></span>
+  </div>
+  <table id="tbl-agents" class="sortable">
+    <thead><tr><th>Agent</th><th class="num">Stage</th><th>Model</th><th>Writes</th><th>Web tools</th></tr></thead>
+    <tbody>
+      <tr><td>field-scout</td><td class="num" data-sort="1">1</td><td>sonnet</td><td><code>tmp/FIELD_MAP.md</code></td><td><span class="badge established">Search + fetch</span></td></tr>
+      <tr><td>insight-refiner</td><td class="num" data-sort="1">1</td><td>opus</td><td><code>tmp/INSIGHTS.md</code></td><td><span class="badge neutral">None</span></td></tr>
+      <tr><td>brief-author</td><td class="num" data-sort="2">2</td><td>opus</td><td><code>tmp/BRIEF.md</code></td><td><span class="badge emerging">Search</span></td></tr>
+      <tr><td>brief-reviewer</td><td class="num" data-sort="2">2</td><td>opus</td><td><code>tmp/BRIEF_REVIEW.md</code></td><td><span class="badge neutral">None</span></td></tr>
+      <tr><td>module-researcher</td><td class="num" data-sort="3">3</td><td>opus</td><td><code>tmp/dossier/mNN-*.md</code></td><td><span class="badge established">Search + fetch</span></td></tr>
+      <tr><td>source-verifier</td><td class="num" data-sort="3">3</td><td>haiku</td><td>a dossier's Verified column</td><td><span class="badge emerging">Fetch</span></td></tr>
+      <tr><td>dossier-consolidator</td><td class="num" data-sort="3">3</td><td>opus</td><td><code>tmp/dossier/00-overview.md</code></td><td><span class="badge neutral">None</span></td></tr>
+      <tr><td>page-writer</td><td class="num" data-sort="4">4</td><td>sonnet</td><td>its 1–3 pages</td><td><span class="badge neutral">None</span></td></tr>
+      <tr><td>site-reviewer</td><td class="num" data-sort="4">4</td><td>opus</td><td><code>tmp/SITE_REVIEW.md</code></td><td><span class="badge neutral">None</span></td></tr>
+    </tbody>
+  </table>
+  <div class="table-note">From the agent table in <code>references/contracts.md</code>. The page writer runs on opus for the priority module and for <code>index.html</code>.</div>
+</div>

@@ -1,0 +1,24 @@
+<!-- atlas-learn component: runner/runner-python.html · use when: a numeric computation the reader should edit and run in Python, standard library only (no numpy); the first run downloads Pyodide (about 10 MB) after the reader agrees, so never on a single-format page · replace: the runner id, the starting code inside pre > code (escape < as &lt; and & as &amp;), data-expected (the real stdout, newlines as &#10;), data-timeout, the setup script (its id and body; omit data-setup when there is none) · runtime: d5-runner (one-time download notice, Pyodide from cdn.jsdelivr.net in a Web Worker, stdout and stderr, pass/fail chip, offline message) · validator: runner without id; unknown data-lang; runner has no starting code; data-setup not found; data-timeout is not a positive integer; duplicate runner id; Python runner on a single-format page (warning) -->
+<script type="text/plain" id="d5-cities-setup">
+import math
+R = 6371.0088                                    # mean Earth radius [km]
+CITIES = {"Hanoi": (21.03, 105.85), "Nuuk": (64.18, -51.72), "Quito": (-0.18, -78.47)}
+</script>
+<div class="runner" id="d5-rhumb-vs-great-circle" data-lang="python" data-setup="d5-cities-setup" data-timeout="8000" data-expected="Hanoi -&gt; Nuuk great circle   10344 km  rhumb   12945 km  (+25.1 %)&#10;Quito -&gt; Nuuk great circle    7482 km  rhumb    7506 km  (+0.3 %)">
+<pre><code class="language-python"># Great circle against rhumb line (the straight line on a Mercator map), no numpy needed.
+def great_circle(a, b):
+    (p1, l1), (p2, l2) = [(math.radians(p), math.radians(l)) for p, l in (a, b)]
+    h = math.sin((p2 - p1) / 2) ** 2 + math.cos(p1) * math.cos(p2) * math.sin((l2 - l1) / 2) ** 2
+    return 2 * R * math.asin(math.sqrt(h))       # haversine formula
+
+def rhumb(a, b):
+    (p1, l1), (p2, l2) = [(math.radians(p), math.radians(l)) for p, l in (a, b)]
+    dl = (l2 - l1 + math.pi) % (2 * math.pi) - math.pi        # shorter way round
+    dpsi = math.log(math.tan(math.pi / 4 + p2 / 2) / math.tan(math.pi / 4 + p1 / 2))
+    q = (p2 - p1) / dpsi if abs(dpsi) &gt; 1e-12 else math.cos(p1)
+    return R * math.hypot(p2 - p1, q * dl)
+
+for start, end in [("Hanoi", "Nuuk"), ("Quito", "Nuuk")]:
+    g, r = great_circle(CITIES[start], CITIES[end]), rhumb(CITIES[start], CITIES[end])
+    print(f"{start:&gt;5} -&gt; {end:&lt;4} great circle {g:7.0f} km  rhumb {r:7.0f} km  (+{100 * (r / g - 1):.1f} %)")</code></pre>
+</div>
