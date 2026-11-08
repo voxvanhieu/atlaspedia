@@ -1,0 +1,20 @@
+<!-- atlaspedia component: protocol/timing.html · use when: a bus or interface cycle the reader must time — clock edges, chip select, data valid windows, high impedance, a pause in a long transfer · replace: the figure id, the JSON (signal rows with name and wave, data labels for every = or 2–9 bus cell, optional groups, node letters and edge arrows, config.hscale), the caption · runtime: protocol (JSON to SVG in the shell phase, then diagrams: zoom, pan, fullscreen, SVG/PNG download) · validator: timing …: invalid JSON · unknown wave character · n data labels for m bus cells · signals of unequal length (warning) -->
+<figure class="timing" id="fig-spi-mode1" data-cite="#ref-placeholder">
+  <script type="application/json">
+{ "signal": [
+    ["Controller",
+      { "name": "nCS",  "wave": "10........1", "node": ".a" },
+      { "name": "SCLK", "wave": "0.ppp|ppp0.", "node": "..b" },
+      { "name": "MOSI", "wave": "x.344|555x.", "data": ["R/W", "A6", "A5", "D2", "D1", "D0"] }
+    ],
+    {},
+    ["Peripheral",
+      { "name": "MISO", "wave": "z.===|===z.", "data": ["S15", "S14", "S13", "S2", "S1", "S0"] }
+    ]
+  ],
+  "edge": ["a->b t_lead ≥ 50 ns"],
+  "config": { "hscale": 1.5 } }
+  </script>
+  <figcaption><b>Figure 4.2 — One 16-bit SPI transfer in mode 1 (CPOL = 0, CPHA = 1).</b> Both sides shift a new bit out on every rising SCLK edge and sample it on the falling edge, half a period later; the break marks the ten middle bits left out. MISO is high-impedance until chip select goes low, which is why several peripherals can share it.</figcaption>
+  <div class="legend"><span class="lg-data">Signal level</span><span class="lg-control">High impedance</span></div>
+</figure>

@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Install the atlas-learn plugin globally for Claude Code (available in every project
+# Install the atlaspedia plugin globally for Claude Code (available in every project
 # on this machine).
 #
 # Usage:
@@ -10,9 +10,9 @@
 # with the local Claude Code CLI. Requires the `claude` CLI on PATH.
 set -euo pipefail
 
-REPO_DEFAULT="voxvanhieu/atlas-learn"
+REPO_DEFAULT="voxvanhieu/atlaspedia"
 MARKETPLACE="voxvanhieu"
-PLUGIN="atlas-learn"
+PLUGIN="atlaspedia"
 
 if ! command -v claude >/dev/null 2>&1; then
   echo "error: the Claude Code CLI ('claude') was not found on PATH." >&2
@@ -38,7 +38,7 @@ echo "==> installing plugin: $PLUGIN@$MARKETPLACE"
 claude plugin install "$PLUGIN@$MARKETPLACE" || claude plugin update "$PLUGIN@$MARKETPLACE"
 
 echo
-echo "done — atlas-learn is now available in every Claude Code session on this machine."
-echo "try it:   claude   then   /atlas-learn:go <topic>"
+echo "done — atlaspedia is now available in every Claude Code session on this machine."
+echo "try it:   claude   then   /atlaspedia:go <topic>"
 echo "update:   claude plugin marketplace update $MARKETPLACE   (in a clone, git pull works too)"
 echo "          claude plugin update $PLUGIN@$MARKETPLACE"

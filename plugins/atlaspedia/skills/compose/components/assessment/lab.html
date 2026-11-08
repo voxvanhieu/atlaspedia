@@ -1,0 +1,38 @@
+<!-- atlaspedia component: assessment/lab.html · use when: a practical the reader performs and hands in — a measurement, a build, a run of a tool with recorded readings; also the printable student sheet (Print lab sheet, or ?mode=handout) · replace: the id, data-duration, title, badges, aim, procedure steps, the safety or pre-flight checklist (unique data-key), the readings table (leave cells empty to fill in), what to hand in, and the expected results in details.lab-answer (never open) · runtime: learn: duration badge from data-duration, checklist progress in the head, Print lab sheet button (prints in handout mode and restores the reader's mode) · validator: lab section without id; lab … has no steps; lab … has no checklist; lab …: checklist without data-key; lab …: answer open by default -->
+<section class="lab" id="b7-lab-budget" data-duration="45 min">
+  <div class="lab-head">
+    <h3>Measure the size budget of a real topic</h3>
+    <span class="badge neutral">Level 1</span>
+    <span class="badge neutral">2 tools</span>
+  </div>
+  <p class="lab-aim">Estimate a single-page topic from its brief, build it, and compare the estimate with the measured page size.</p>
+  <h4>Procedure</h4>
+  <ol class="steps">
+    <li>Run <code>python scripts/estimate_size.py topics/&lt;slug&gt;/PLAN.md</code> and record <code>est_kb</code> and <code>fits</code> from the RESULT line.</li>
+    <li>Compose the page (<code>/atlaspedia:compose &lt;slug&gt;</code>) and record the size <code>validate.py</code> prints for <code>index.html</code>.</li>
+    <li>Run <code>bundle.py</code> and record the <code>bytes=</code> value of the bundled file.</li>
+    <li>Compute the estimate error as (measured − estimated) / estimated.</li>
+  </ol>
+  <h4>Before you start</h4>
+  <ul class="checklist" data-key="b7-lab-budget-preflight">
+    <li>The plan's research row is <code>[x]</code> — compose needs it.</li>
+    <li>Python 3.11+ and node are on PATH (without node the validator skips the script syntax check).</li>
+    <li>The topic folder is committed, so a failed run can be reverted.</li>
+  </ul>
+  <h4>Readings</h4>
+  <table class="lab-record compact">
+    <thead><tr><th>Quantity</th><th>Value</th><th>Unit</th><th>Source line</th></tr></thead>
+    <tbody>
+      <tr><td>Estimated size</td><td></td><td>KB</td><td><code>est_kb=</code></td></tr>
+      <tr><td>Page size after compose</td><td></td><td>KB</td><td>validate.py table</td></tr>
+      <tr><td>Bundled size</td><td></td><td>bytes</td><td><code>bytes=</code></td></tr>
+      <tr><td>Estimate error</td><td></td><td>%</td><td>step 4</td></tr>
+    </tbody>
+  </table>
+  <div class="lab-report">
+    <p>The filled readings table, the three RESULT lines, and two sentences on why the bundle is larger than the page (what gets inlined).</p>
+  </div>
+  <details class="lab-answer"><summary>Expected results</summary>
+    <p>atlaspedia states no expected accuracy for the estimate <span class="badge not-specified">Not specified</span>, so the error you record is a measurement, not a pass mark; the bundle is larger by the size of <code>style.css</code>, <code>app.js</code>, <code>site.js</code>, <code>glossary.js</code> and <code>data.js</code>, which <code>bundle.py</code> inlines.</p>
+  </details>
+</section>

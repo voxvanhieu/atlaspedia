@@ -1,0 +1,11 @@
+<!-- atlaspedia component: core/tabs.html · use when: the same thing in 2–5 languages, tools or variants the reader chooses between; never hide required content in a non-default tab · replace: tab labels, data-tab keys, panel content · runtime: tabs (a plot inside a hidden panel redraws when the panel is shown) · validator: none -->
+<div class="tabs">
+  <div class="tab-list"><button type="button" data-tab="site" class="active">Full site</button><button type="button" data-tab="single">Single page</button></div>
+  <div class="tab-panel" data-tab="site"><pre><code class="language-bash"># one page per module under pages/, the overview at the topic root
+python "$PLUGIN/scripts/scaffold.py" topics/map-projections --plan topics/map-projections/tmp/SITE_PLAN.md
+python "$PLUGIN/scripts/validate.py" topics/map-projections</code></pre></div>
+  <div class="tab-panel" data-tab="single"><pre><code class="language-bash"># one page built in tmp/site/, then inlined into one file at the topic root
+python "$PLUGIN/scripts/scaffold.py" topics/map-projections/tmp/site --plan topics/map-projections/tmp/SITE_PLAN.md
+python "$PLUGIN/scripts/validate.py" topics/map-projections/tmp/site
+python "$PLUGIN/scripts/bundle.py" topics/map-projections/tmp/site --out topics/map-projections/index.html</code></pre></div>
+</div>

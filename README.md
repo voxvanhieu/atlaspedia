@@ -1,15 +1,15 @@
-# atlas-learn
+# atlaspedia
 
 **Any topic → your own interactive handbook. One command.**
 
 Tell Claude what you want to learn. It asks a few questions, reads real sources, and builds you a mini-website: chapters, diagrams, quizzes, flashcards - and every fact linked to its source. If something can't be verified, it's marked as missing. Never invented.
 
-![The handbook atlas-learn builds: a hero page describing the topic, its stages and formats](imgs/handbook.png)
+![The handbook atlaspedia builds: a hero page describing the topic, its stages and formats](imgs/handbook.png)
 
 ## Install
 
 ```bash
-git clone https://github.com/voxvanhieu/atlas-learn && cd atlas-learn
+git clone https://github.com/voxvanhieu/atlaspedia && cd atlaspedia
 # macOS / Linux
 ./install.sh
 # Windows
@@ -21,7 +21,7 @@ No accounts. No keys. Works in every Claude Code session on your machine.
 ## Learn something
 
 ```
-/atlas-learn:go how do quadcopters fly?
+/atlaspedia:go how do quadcopters fly?
 ```
 
 ```mermaid
@@ -29,14 +29,14 @@ sequenceDiagram
     autonumber
     actor U as You
     participant C as Claude
-    U->>C: /atlas-learn:go how do quadcopters fly?
+    U->>C: /atlaspedia:go how do quadcopters fly?
     C-->>U: a few quick questions
     U->>C: answer (or "skip")
     Note over C: plans the chapters<br/>reads live sources<br/>verifies every claim
     C-->>U: your handbook is ready
 ```
 
-Come back anytime - `/atlas-learn:go` continues exactly where it stopped.
+Come back anytime - `/atlaspedia:go` continues exactly where it stopped.
 
 ## The journey
 
@@ -48,7 +48,7 @@ What you end up with: a **topics dictionary** to pick a topic from...
 
 ```mermaid
 flowchart LR
-    go(["/atlas-learn:go"]) --> a["Interview"] --> b["Plan<br/>you approve"] --> c["Verified<br/>research"] --> d["Interactive<br/>site"] --> done(["Handbook"])
+    go(["/atlaspedia:go"]) --> a["Interview"] --> b["Plan<br/>you approve"] --> c["Verified<br/>research"] --> d["Interactive<br/>site"] --> done(["Handbook"])
 ```
 
 | Why it's good            |                                                             |
@@ -96,18 +96,18 @@ And a live Python sandbox on the page:
 
 | Command                                                                            | Does                      |
 | ---------------------------------------------------------------------------------- | ------------------------- |
-| `/atlas-learn:go <topic>`                                                          | the whole journey         |
-| `/atlas-learn:go <topic> --single`                                                 | the one-page version      |
-| `/atlas-learn:collect-insights` · `/atlas-learn:research` · `/atlas-learn:compose` | run the stages one by one |
+| `/atlaspedia:go <topic>`                                                          | the whole journey         |
+| `/atlaspedia:go <topic> --single`                                                 | the one-page version      |
+| `/atlaspedia:collect-insights` · `/atlaspedia:research` · `/atlaspedia:compose` | run the stages one by one |
 
 ## Update · Remove
 
 ```bash
 # update
 claude plugin marketplace update voxvanhieu
-claude plugin update atlas-learn@voxvanhieu
+claude plugin update atlaspedia@voxvanhieu
 # remove
-claude plugin uninstall atlas-learn@voxvanhieu
+claude plugin uninstall atlaspedia@voxvanhieu
 claude plugin marketplace remove voxvanhieu
 ```
 

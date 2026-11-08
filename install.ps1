@@ -1,4 +1,4 @@
-# Install the atlas-learn plugin globally for Claude Code (available in every project
+# Install the atlaspedia plugin globally for Claude Code (available in every project
 # on this machine).
 #
 # Usage:
@@ -13,9 +13,9 @@
 
 $ErrorActionPreference = "Stop"
 
-$RepoDefault = "voxvanhieu/atlas-learn"
+$RepoDefault = "voxvanhieu/atlaspedia"
 $Marketplace = "voxvanhieu"
-$Plugin      = "atlas-learn"
+$Plugin      = "atlaspedia"
 
 if (-not (Get-Command claude -ErrorAction SilentlyContinue)) {
     Write-Error "the Claude Code CLI ('claude') was not found on PATH. Install it first: npm install -g @anthropic-ai/claude-code"
@@ -42,7 +42,7 @@ if ($LASTEXITCODE -ne 0) {
 }
 
 Write-Host ""
-Write-Host "done - atlas-learn is now available in every Claude Code session on this machine."
-Write-Host "try it:  claude   then   /atlas-learn:go <topic>"
+Write-Host "done - atlaspedia is now available in every Claude Code session on this machine."
+Write-Host "try it:  claude   then   /atlaspedia:go <topic>"
 Write-Host "update:  claude plugin marketplace update $Marketplace   (in a clone, git pull works too)"
 Write-Host "         claude plugin update $Plugin@$Marketplace"

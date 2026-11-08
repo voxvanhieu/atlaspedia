@@ -1,0 +1,27 @@
+<!-- atlaspedia component: protocol/sequence.html · use when: a message exchange between two or more parties — a handshake, a request/response with retries, an error path — where order and direction matter more than geometry · replace: the figure id, the text (participant X as Label; A->>B: msg solid, A-->>B: reply dashed, A-xB: lost; note over A,B: text; loop/alt/else/opt … end; autonumber), the caption · runtime: protocol (text to SVG in the shell phase, then diagrams: zoom, pan, fullscreen, SVG/PNG download) · validator: sequence …: line n does not parse · else outside an alt block · end without loop, alt or opt · never closed with end · message to undeclared participant (warning) -->
+<figure class="seq" id="fig-tls13-handshake" data-cite="#ref-placeholder">
+  <script type="text/plain">
+autonumber
+participant C as Client
+participant S as Server
+participant R as OCSP responder
+C->>S: ClientHello + key_share
+S->>C: ServerHello + key_share
+note over C,S: both sides derive the handshake keys
+S->>C: {EncryptedExtensions, Certificate}
+S->>C: {CertificateVerify, Finished}
+alt status not stapled
+  C->>R: OCSP request (certificate serial)
+  R-->>C: OCSP response: good
+else status stapled
+  note left of C: status read from the Certificate message
+end
+C->>S: {Finished}
+loop every request
+  C->>S: [application data]
+  S-->>C: [application data]
+end
+C-xS: close_notify (lost when the link drops)
+  </script>
+  <figcaption><b>Figure 6.3 — A TLS 1.3 full handshake with an optional revocation check.</b> Braces mark messages encrypted with the handshake keys, square brackets those under the application keys; the client checks revocation itself only when the server did not staple the OCSP response. Numbers follow the order on the wire.</figcaption>
+</figure>

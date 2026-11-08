@@ -1,0 +1,29 @@
+<!-- atlaspedia component: media/compare.html · use when: two views of the same thing differ in one way the reader should see by sliding — before and after, two projections of one region, a sketch against the photo, a simulation against a measurement · replace: data-label-a and data-label-b, the two panes (img, inline svg or div, same aspect ratio) and the caption; for photos use URLs the dossier verified · runtime: compare slider (draggable divider, click to jump, ← → keys on the focused slider, labels in the corners) · validator: compare figure … has n panes, needs 2 -->
+<figure class="compare" id="c11-projections-compare" data-label-a="Mercator" data-label-b="Lambert equal-area">
+  <svg viewBox="0 0 600 360" role="img" aria-labelledby="c11-cmp-a"><title id="c11-cmp-a">Mercator graticule from 75° S to 75° N: the parallels spread apart towards the poles; the Tissot circle at 45° N stays a circle</title>
+    <rect class="d-box" x="20" y="10" width="560" height="340" rx="6"/>
+    <path class="d-mech" d="M66.7 10 V350 M113.3 10 V350 M160 10 V350 M206.7 10 V350 M253.3 10 V350 M300 10 V350 M346.7 10 V350 M393.3 10 V350 M440 10 V350 M486.7 10 V350 M533.3 10 V350"/>
+    <path class="d-data" d="M20 157.8 H580 M20 202.2 H580 M20 133.9 H580 M20 226.1 H580 M20 106.1 H580 M20 253.9 H580 M20 69.6 H580 M20 290.4 H580"/>
+    <path class="d-line" d="M20 180 H580"/>
+    <circle class="d-box accent" cx="300" cy="106.1" r="20"/>
+    <text class="d-text xs" x="26" y="155">15°</text>
+    <text class="d-text xs" x="26" y="131">30°</text>
+    <text class="d-text xs" x="26" y="103">45°</text>
+    <text class="d-text xs" x="26" y="67">60°</text>
+    <text class="d-text xs" x="26" y="177">0°</text>
+  </svg>
+  <svg viewBox="0 0 600 360" role="img" aria-labelledby="c11-cmp-b"><title id="c11-cmp-b">Lambert cylindrical equal-area graticule from 75° S to 75° N: the parallels bunch towards the poles; the Tissot circle at 45° N is squashed into an ellipse of the same area</title>
+    <rect class="d-box alt" x="20" y="10" width="560" height="340" rx="6"/>
+    <path class="d-mech" d="M66.7 10 V350 M113.3 10 V350 M160 10 V350 M206.7 10 V350 M253.3 10 V350 M300 10 V350 M346.7 10 V350 M393.3 10 V350 M440 10 V350 M486.7 10 V350 M533.3 10 V350"/>
+    <path class="d-ctrl" d="M20 134.4 H580 M20 225.6 H580 M20 92 H580 M20 268 H580 M20 55.5 H580 M20 304.5 H580 M20 27.6 H580 M20 332.4 H580"/>
+    <path class="d-line" d="M20 180 H580"/>
+    <ellipse class="d-box accent" cx="300" cy="55.5" rx="28" ry="14"/>
+    <text class="d-text xs" x="26" y="131">15°</text>
+    <text class="d-text xs" x="26" y="89">30°</text>
+    <text class="d-text xs" x="26" y="52">45°</text>
+    <text class="d-text xs" x="26" y="25">60°</text>
+    <text class="d-text xs" x="26" y="177">0°</text>
+  </svg>
+  <figcaption><b>Figure 2.5 — The same graticule under two cylindrical projections.</b> Drag the divider: Mercator pushes the parallels apart as latitude grows (the 60° band is as tall as the 0–30° band), Lambert's equal-area projection squeezes them together. The circle at 45° N is a Tissot indicatrix — Mercator keeps its shape and inflates its area, the equal-area projection keeps its area and flattens it. Meridians every 30°, parallels every 15°.</figcaption>
+  <div class="legend"><span class="lg-data">Mercator parallels</span><span class="lg-control">Equal-area parallels</span><span class="lg-mech">Meridians</span></div>
+</figure>

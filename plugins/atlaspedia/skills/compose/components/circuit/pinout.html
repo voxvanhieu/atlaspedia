@@ -1,0 +1,40 @@
+<!-- atlaspedia component: circuit/pinout.html · use when: a chip, module or connector whose pins the reader wires up — the package drawing with pin names coloured by type, a legend and a pin table (hover or focus a pin to find its row) · replace: the figure id, the JSON in the template (package DIP, SOIC, QFP or header, optionally with the count as in DIP-28; rows 1 or 2 for a header; title; pins: n, name, type power/ground/io/input/output/analog/clock/control/nc, note), the caption · runtime: circuit (figure.pinout → drawing in the diagrams markup with zoom and download, legend, pin table) · validator: pinout … invalid JSON · duplicate pin number n · DIP needs an even pin count · QFP needs a pin count divisible by 4 · package DIP-28 but n pins · pin numbers must run 1..N -->
+<figure class="pinout" id="fig-c8-atmega328p" data-cite="#ref-placeholder">
+  <template>
+  {
+    "package": "DIP-28",
+    "title": "ATmega328P",
+    "pins": [
+      {"n": 1, "name": "PC6 / RESET", "type": "control", "note": "Active-low reset; keep a 10 kΩ pull-up"},
+      {"n": 2, "name": "PD0 / RXD", "type": "io", "note": "USART receive"},
+      {"n": 3, "name": "PD1 / TXD", "type": "io", "note": "USART transmit"},
+      {"n": 4, "name": "PD2 / INT0", "type": "io"},
+      {"n": 5, "name": "PD3 / INT1", "type": "io"},
+      {"n": 6, "name": "PD4 / T0", "type": "io"},
+      {"n": 7, "name": "VCC", "type": "power", "note": "1.8–5.5 V; 100 nF to GND at the pin"},
+      {"n": 8, "name": "GND", "type": "ground"},
+      {"n": 9, "name": "PB6 / XTAL1", "type": "clock", "note": "Crystal or external clock in"},
+      {"n": 10, "name": "PB7 / XTAL2", "type": "clock", "note": "Crystal out"},
+      {"n": 11, "name": "PD5 / T1", "type": "io"},
+      {"n": 12, "name": "PD6 / AIN0", "type": "io"},
+      {"n": 13, "name": "PD7 / AIN1", "type": "io"},
+      {"n": 14, "name": "PB0 / ICP1", "type": "io"},
+      {"n": 15, "name": "PB1 / OC1A", "type": "io"},
+      {"n": 16, "name": "PB2 / SS", "type": "io"},
+      {"n": 17, "name": "PB3 / MOSI", "type": "io", "note": "ISP data in"},
+      {"n": 18, "name": "PB4 / MISO", "type": "io", "note": "ISP data out"},
+      {"n": 19, "name": "PB5 / SCK", "type": "io", "note": "ISP clock"},
+      {"n": 20, "name": "AVCC", "type": "power", "note": "ADC supply; tie to VCC through an LC filter"},
+      {"n": 21, "name": "AREF", "type": "analog", "note": "ADC reference; 100 nF to GND"},
+      {"n": 22, "name": "GND", "type": "ground"},
+      {"n": 23, "name": "PC0 / ADC0", "type": "analog"},
+      {"n": 24, "name": "PC1 / ADC1", "type": "analog"},
+      {"n": 25, "name": "PC2 / ADC2", "type": "analog"},
+      {"n": 26, "name": "PC3 / ADC3", "type": "analog"},
+      {"n": 27, "name": "PC4 / ADC4 / SDA", "type": "analog", "note": "Also the I²C data line"},
+      {"n": 28, "name": "PC5 / ADC5 / SCL", "type": "analog", "note": "Also the I²C clock line"}
+    ]
+  }
+  </template>
+  <figcaption><b>Figure 4.4 — ATmega328P in the 28-pin DIP.</b> Pin 1 sits left of the notch and the count runs down the left side and back up the right; both GND pins and both supplies (VCC, AVCC) must be connected even when the ADC is unused.</figcaption>
+</figure>

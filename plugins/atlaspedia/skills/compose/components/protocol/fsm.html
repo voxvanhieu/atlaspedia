@@ -1,0 +1,22 @@
+<!-- atlaspedia component: protocol/fsm.html · use when: a controller, parser or protocol endpoint whose behaviour is a set of states and the events that move between them — debouncers, connection states, mode logic · replace: the figure id, the text ([*] --> First; A --> B : event / action; state A : description; state "Long name" as A; direction LR or TB), the caption · runtime: protocol (text to SVG in the shell phase: layered layout, curved back edges, self-loops; then diagrams: zoom, pan, fullscreen, SVG/PNG download) · validator: fsm …: line n does not parse · no states · no initial [*] transition (warning) -->
+<figure class="fsm" id="fig-debounce-fsm" data-cite="#ref-placeholder">
+  <script type="text/plain">
+stateDiagram-v2
+direction LR
+[*] --> Released
+state Released : output 0
+state "Maybe pressed" as MaybePressed
+state MaybePressed : timer running
+state Pressed : output 1
+state "Maybe released" as MaybeReleased
+state MaybeReleased : timer running
+Released --> MaybePressed : raw 1 / start timer
+MaybePressed --> Released : raw 0
+MaybePressed --> Pressed : 20 ms elapsed
+Pressed --> MaybeReleased : raw 0 / start timer
+MaybeReleased --> Pressed : raw 1
+MaybeReleased --> Released : 20 ms elapsed
+Pressed --> Pressed : 1 ms tick
+  </script>
+  <figcaption><b>Figure 3.4 — A four-state debouncer for a push button sampled every millisecond.</b> The output changes only after the raw input has held its new level for 20 ms; a bounce sends the machine back along a curved edge to the state it came from, so contact chatter never reaches the output.</figcaption>
+</figure>

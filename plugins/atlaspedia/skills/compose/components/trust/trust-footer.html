@@ -1,0 +1,17 @@
+<!-- atlaspedia component: trust/trust-footer.html · use when: every page except index.html and glossary.html, always the last section inside main · replace: data-reviewed (the date you finished the page), the assumptions list (one per demo assumption), the gaps list (your Gaps report; drop the whole details when empty); never write the stats line · runtime: trust footer (counts verified refs, demos and GAP markers into .trust-stats) · validator: page has no trust footer; trust footer data-reviewed is not a date; trust footer must be the last section -->
+<section class="trust" data-reviewed="2026-11-07">
+  <h2 id="trust">Trust &amp; provenance</h2>
+  <div class="trust-stats" aria-live="polite"></div>
+  <details class="trust-assumptions"><summary>Assumptions and simplifications</summary>
+    <ul>
+      <li>The size-budget calculator gives every part the same size and ignores media, which loads from the web and does not count towards the page.</li>
+      <li>The allowance plot uses the 250 KB budget and the 40 KB frame the compose skill states; it computes from them, it does not measure.</li>
+      <li>Demo inputs are the reader's own; outputs are computed by the cited models and are not measurements.</li>
+    </ul>
+  </details>
+  <details class="trust-gaps"><summary>Open gaps</summary>
+    <ul>
+      <li>m03-research.html#quota: no measured search quota per session; the limit is described, not quantified.</li>
+    </ul>
+  </details>
+</section>

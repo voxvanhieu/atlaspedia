@@ -1,0 +1,59 @@
+<!-- atlaspedia component: diagrams/diagram-layers.html · use when: one drawing stacks several concerns the reader should be able to switch on and off — an exploded view of a device, the layers of a stack, what the writer wrote against what the runtime adds · replace: the figure id and title id, the base drawing, one g[data-layer="Name"] per layer (data-layer-off hides it at first), the figcaption and legend; layer names must be unique in the figure · runtime: exploded-view layers (one chip per layer, All / None) plus diagrams (zoom, download) · validator: exploded view … has fewer than 2 layers; layer "…" used twice in …; layer without a name in … -->
+<figure class="diagram" id="c11-page-anatomy" data-layers data-cite="#ref-atlaspedia-docs">
+  <svg viewBox="0 0 900 460" role="img" aria-labelledby="c11-page-anatomy-t"><title id="c11-page-anatomy-t">Anatomy of an atlaspedia page: the shell the runtime builds, the content the writer wrote, the enhancements injected at load, and the generated data files that feed them</title>
+    <rect class="d-group" x="20" y="20" width="860" height="380" rx="12"/>
+    <text class="d-text lbl" x="40" y="46">An atlaspedia page in the browser — switch the layers off and on</text>
+    <g data-layer="Shell">
+      <rect class="d-box alt" x="40" y="60" width="820" height="36" rx="6"/>
+      <text class="d-text b" x="60" y="84">atlaspedia · Map projections</text>
+      <rect class="d-box" x="826" y="66" width="24" height="24" rx="5"/>
+      <rect class="d-box alt" x="40" y="108" width="180" height="272" rx="6"/>
+      <text class="d-text b" x="130" y="134" text-anchor="middle">Sidebar</text>
+      <text class="d-text xs" x="56" y="158">Modules completed: 2 / 6</text>
+      <text class="d-text lbl" x="56" y="184">Foundations</text>
+      <text class="d-text xs" x="56" y="204">01  From the globe to the plane</text>
+      <text class="d-text xs" x="56" y="224">02  Distortion and Tissot</text>
+      <text class="d-text xs" x="56" y="244">03  Cylindrical projections</text>
+      <rect class="d-box alt" x="700" y="108" width="160" height="272" rx="6"/>
+      <text class="d-text b" x="780" y="134" text-anchor="middle">On this page</text>
+      <text class="d-text xs" x="716" y="158">Objectives</text>
+      <text class="d-text xs" x="716" y="178">Introduction</text>
+      <text class="d-text xs" x="716" y="198">Checkpoints</text>
+      <text class="d-text xs" x="716" y="218">Trust</text>
+    </g>
+    <g data-layer="Content">
+      <rect class="d-box accent" x="236" y="108" width="448" height="58" rx="6"/>
+      <text class="d-text b" x="460" y="133" text-anchor="middle">M02 — Distortion and Tissot's indicatrix</text>
+      <text class="d-text xs" x="460" y="152" text-anchor="middle">Study time ≈ 6 h · Level 2 · module-hero written by the page writer</text>
+      <rect class="d-box" x="236" y="178" width="448" height="36" rx="6"/>
+      <text class="d-text mono" x="460" y="201" text-anchor="middle">#objectives · ol.objectives</text>
+      <rect class="d-box" x="236" y="222" width="448" height="36" rx="6"/>
+      <text class="d-text mono" x="460" y="245" text-anchor="middle">#introduction · figure.diagram · .math5</text>
+      <rect class="d-box" x="236" y="266" width="448" height="36" rx="6"/>
+      <text class="d-text mono" x="460" y="289" text-anchor="middle">#checkpoints · .quiz × 4</text>
+      <rect class="d-box ctl" x="236" y="310" width="448" height="50" rx="6"/>
+      <text class="d-text b" x="460" y="331" text-anchor="middle">section.trust · data-reviewed 2026-11-07</text>
+    </g>
+    <g data-layer="Enhancements">
+      <path class="d-line d-ctrl" d="M40 54 H520"/>
+      <rect class="d-box" x="560" y="66" width="220" height="24" rx="5"/>
+      <text class="d-text mono" x="670" y="82" text-anchor="middle">Search … ( / )</text>
+      <text class="d-text xs" x="460" y="350" text-anchor="middle">8 / 9 sources verified · reviewed 2026-11-07 · 0 open gaps</text>
+      <rect class="d-box" x="236" y="368" width="448" height="24" rx="6"/>
+      <text class="d-text xs" x="460" y="384" text-anchor="middle">← Previous · 01     ·     Next · 03 →</text>
+    </g>
+    <g data-layer="Data" data-layer-off>
+      <rect class="d-box mcu" x="40" y="412" width="180" height="34" rx="6"/>
+      <text class="d-text mono" x="130" y="434" text-anchor="middle">assets/site.js</text>
+      <rect class="d-box mcu" x="250" y="412" width="180" height="34" rx="6"/>
+      <text class="d-text mono" x="340" y="434" text-anchor="middle">assets/glossary.js</text>
+      <rect class="d-box mcu" x="460" y="412" width="180" height="34" rx="6"/>
+      <text class="d-text mono" x="550" y="434" text-anchor="middle">assets/data.js</text>
+      <path class="d-line d-data d-dash" d="M130 410 V382" marker-end="url(#arr-data)"/>
+      <path class="d-line d-data d-dash" d="M340 410 V404 H230 V100 H670 V92" marker-end="url(#arr-data)"/>
+      <path class="d-line d-data d-dash" d="M550 410 V404 H692 V340 H688" marker-end="url(#arr-data)"/>
+    </g>
+  </svg>
+  <figcaption><b>Figure 3.4 — Anatomy of an atlaspedia page, layer by layer.</b> Switch <i>Content</i> off to see everything the runtime adds; switch <i>Shell</i> and <i>Enhancements</i> off to see what the writer actually wrote. The <i>Data</i> layer, off at first, shows which generated file feeds the sidebar, the search and the trust footer.</figcaption>
+  <div class="legend"><span class="lg-box">Boxes the reader sees</span><span class="lg-control">Reading progress</span><span class="lg-data">Generated data flowing in</span></div>
+</figure>

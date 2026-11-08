@@ -1,0 +1,81 @@
+<!-- atlaspedia component: circuit/symbols.html · use when: a circuit drawn by hand in a diagrams figure — resistors, capacitors, diodes, transistors, op-amps, supplies, switches, crystals, fuses, off-page ports · replace: the figure ids and title ids, the use elements (href="#sym-name", x, y, or transform="translate(x y) rotate(90)"), the wires (path.sym-wire on the 10-unit grid), labels, values, caption; keep the sym-* ids and the d-* classes, never hard-code colours · runtime: circuit (symbol sprite injected only when used; each use is expanded into the drawing so zoom, pan and the SVG/PNG download work) · validator: unknown symbol "sym-x" in use href · hard-coded SVG colour(s) -->
+<figure class="diagram" id="fig-c8-symbols" data-cite="#ref-atlaspedia-docs">
+  <svg viewBox="0 0 580 324" role="img" aria-labelledby="fig-c8-symbols-t"><title id="fig-c8-symbols-t">The nineteen schematic symbols of the atlaspedia library, each with its pins marked as dots</title>
+    <use href="#sym-resistor" x="46" y="40"/>
+    <circle class="sym-dot" cx="46" cy="40" r="2"/><circle class="sym-dot" cx="86" cy="40" r="2"/>
+    <text class="d-text mono" x="66" y="78" text-anchor="middle">sym-resistor</text>
+    <use href="#sym-capacitor" x="158" y="40"/>
+    <circle class="sym-dot" cx="158" cy="40" r="2"/><circle class="sym-dot" cx="198" cy="40" r="2"/>
+    <text class="d-text mono" x="178" y="78" text-anchor="middle">sym-capacitor</text>
+    <use href="#sym-cap-polar" x="270" y="42"/>
+    <circle class="sym-dot" cx="270" cy="42" r="2"/><circle class="sym-dot" cx="310" cy="42" r="2"/>
+    <text class="d-text mono" x="290" y="78" text-anchor="middle">sym-cap-polar</text>
+    <use href="#sym-inductor" x="382" y="42"/>
+    <circle class="sym-dot" cx="382" cy="42" r="2"/><circle class="sym-dot" cx="422" cy="42" r="2"/>
+    <text class="d-text mono" x="402" y="78" text-anchor="middle">sym-inductor</text>
+    <use href="#sym-diode" x="494" y="40"/>
+    <circle class="sym-dot" cx="494" cy="40" r="2"/><circle class="sym-dot" cx="534" cy="40" r="2"/>
+    <text class="d-text mono" x="514" y="78" text-anchor="middle">sym-diode</text>
+    <use href="#sym-led" x="46" y="120"/>
+    <circle class="sym-dot" cx="46" cy="120" r="2"/><circle class="sym-dot" cx="86" cy="120" r="2"/>
+    <text class="d-text mono" x="66" y="154" text-anchor="middle">sym-led</text>
+    <use href="#sym-zener" x="158" y="116"/>
+    <circle class="sym-dot" cx="158" cy="116" r="2"/><circle class="sym-dot" cx="198" cy="116" r="2"/>
+    <text class="d-text mono" x="178" y="154" text-anchor="middle">sym-zener</text>
+    <use href="#sym-npn" x="277" y="116"/>
+    <circle class="sym-dot" cx="277" cy="116" r="2"/><circle class="sym-dot" cx="297" cy="96" r="2"/><circle class="sym-dot" cx="297" cy="136" r="2"/>
+    <text class="d-text mono" x="290" y="154" text-anchor="middle">sym-npn</text>
+    <use href="#sym-pnp" x="389" y="116"/>
+    <circle class="sym-dot" cx="389" cy="116" r="2"/><circle class="sym-dot" cx="409" cy="96" r="2"/><circle class="sym-dot" cx="409" cy="136" r="2"/>
+    <text class="d-text mono" x="402" y="154" text-anchor="middle">sym-pnp</text>
+    <use href="#sym-nmos" x="504" y="116"/>
+    <circle class="sym-dot" cx="504" cy="116" r="2"/><circle class="sym-dot" cx="524" cy="96" r="2"/><circle class="sym-dot" cx="524" cy="136" r="2"/>
+    <text class="d-text mono" x="514" y="154" text-anchor="middle">sym-nmos</text>
+    <use href="#sym-pmos" x="56" y="192"/>
+    <circle class="sym-dot" cx="56" cy="192" r="2"/><circle class="sym-dot" cx="76" cy="172" r="2"/><circle class="sym-dot" cx="76" cy="212" r="2"/>
+    <text class="d-text mono" x="66" y="230" text-anchor="middle">sym-pmos</text>
+    <use href="#sym-opamp" x="158" y="192"/>
+    <circle class="sym-dot" cx="158" cy="182" r="2"/><circle class="sym-dot" cx="158" cy="202" r="2"/><circle class="sym-dot" cx="198" cy="192" r="2"/>
+    <text class="d-text mono" x="178" y="230" text-anchor="middle">sym-opamp</text>
+    <use href="#sym-ground" x="290" y="184"/>
+    <circle class="sym-dot" cx="290" cy="184" r="2"/>
+    <text class="d-text mono" x="290" y="230" text-anchor="middle">sym-ground</text>
+    <use href="#sym-vcc" x="402" y="197"/>
+    <circle class="sym-dot" cx="402" cy="197" r="2"/>
+    <text class="d-text mono" x="402" y="230" text-anchor="middle">sym-vcc</text>
+    <use href="#sym-battery" x="494" y="194"/>
+    <circle class="sym-dot" cx="494" cy="194" r="2"/><circle class="sym-dot" cx="534" cy="194" r="2"/>
+    <text class="d-text mono" x="514" y="230" text-anchor="middle">sym-battery</text>
+    <use href="#sym-switch" x="46" y="272"/>
+    <circle class="sym-dot" cx="46" cy="272" r="2"/><circle class="sym-dot" cx="86" cy="272" r="2"/>
+    <text class="d-text mono" x="66" y="306" text-anchor="middle">sym-switch</text>
+    <use href="#sym-crystal" x="158" y="268"/>
+    <circle class="sym-dot" cx="158" cy="268" r="2"/><circle class="sym-dot" cx="198" cy="268" r="2"/>
+    <text class="d-text mono" x="178" y="306" text-anchor="middle">sym-crystal</text>
+    <use href="#sym-fuse" x="270" y="268"/>
+    <circle class="sym-dot" cx="270" cy="268" r="2"/><circle class="sym-dot" cx="310" cy="268" r="2"/>
+    <text class="d-text mono" x="290" y="306" text-anchor="middle">sym-fuse</text>
+    <use href="#sym-port" x="389" y="268"/>
+    <circle class="sym-dot" cx="389" cy="268" r="2"/>
+    <text class="d-text mono" x="402" y="306" text-anchor="middle">sym-port</text>
+  </svg>
+  <figcaption><b>Figure 4.1 — The symbol library.</b> Every part sits on a 10-unit grid with its pins (dots) on grid points: two-terminal parts run from (0, 0) to (40, 0), transistors take the base or gate at (0, 0), the op-amp has its inputs at (0, ∓10) and its output at (40, 0).</figcaption>
+</figure>
+<figure class="diagram" id="fig-c8-rc-filter" data-cite="#ref-placeholder">
+  <svg viewBox="0 0 260 140" width="520" role="img" aria-labelledby="fig-c8-rc-filter-t"><title id="fig-c8-rc-filter-t">First-order RC low-pass filter: VIN through R1 to VOUT, C1 from the output node to ground</title>
+    <use href="#sym-port" transform="translate(60 60) rotate(180)"/>
+    <use href="#sym-resistor" x="80" y="60"/>
+    <use href="#sym-capacitor" transform="translate(150 60) rotate(90)"/>
+    <use href="#sym-ground" x="150" y="100"/>
+    <use href="#sym-port" x="180" y="60"/>
+    <path class="sym-wire" d="M60 60H80M120 60H180"/>
+    <circle class="sym-dot" cx="150" cy="60" r="2.6"/>
+    <text class="d-text b" x="28" y="64" text-anchor="end">VIN</text>
+    <text class="d-text b" x="100" y="46" text-anchor="middle">R1</text>
+    <text class="d-text mono" x="100" y="80" text-anchor="middle">1.6 kΩ</text>
+    <text class="d-text b" x="162" y="78">C1</text>
+    <text class="d-text mono" x="162" y="92">100 nF</text>
+    <text class="d-text b" x="212" y="64">VOUT</text>
+  </svg>
+  <figcaption><b>Figure 4.2 — An RC low-pass filter drawn from library symbols.</b> R1 = 1.6 kΩ and C1 = 100 nF put the −3 dB corner at 1/(2π·R1·C1) ≈ 995 Hz; above it the output falls by 20 dB per decade.</figcaption>
+</figure>

@@ -1,8 +1,0 @@
-<!-- atlas-learn component: plots/sweep.html · use when: one curve depends on a parameter and the reader should see the whole family at once — standard parallels, zoom levels, gains, damping ratios — with one member highlighted · replace: the figure ids, data-fn (an expression in x and the swept name), data-x and data-y ranges (optional third item = axis label), data-sweep (name=min:max:step, at most 24 members), the captions; sweep.js holds the QC.sweep variant for a formula written in JavaScript · runtime: plots (sweep: colour ramp, legend k = …, highlight slider; download tools) · validator: sweep without data-fn · sweep data-sweep … must be name=min:max:step · sweep has n members, max 24 · sweep expression: … -->
-<figure class="sweep" id="c7-sweep-parallel" data-fn="cos(p*pi/180)/cos(x*pi/180)" data-x="-70,70,latitude φ [°]" data-y="0,3,scale factor k" data-sweep="p=0:60:10" data-cite="#ref-placeholder">
-  <figcaption><b>Figure 1.7 — Scale factor of a cylindrical projection for standard parallels p = 0°, 10°, …, 60°.</b> k = cos p / cos φ: the higher the standard parallel, the smaller the scale at the equator and the later the blow-up towards the poles. Drag the slider to highlight one member of the family.</figcaption>
-</figure>
-<figure class="plot" id="c7-sweep-api" data-cite="#ref-placeholder">
-  <canvas id="c7-sweep-api-canvas"></canvas>
-  <figcaption><b>Figure 1.8 — Ground resolution of Web Mercator tiles by zoom level.</b> Metres per pixel = 2πR cos φ / (256 · 2<sup>z</sup>) with R = 6 378 137 m: a logarithmic y-axis turns the doubling per zoom level into equal spacing, and the cos φ factor is the same bend on every curve.</figcaption>
-</figure>

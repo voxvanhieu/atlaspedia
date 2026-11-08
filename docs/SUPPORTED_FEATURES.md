@@ -1,6 +1,6 @@
 # Supported features
 
-Every atlas-learn handbook is assembled from a fixed catalog of components (see `plugins/atlas-learn/skills/compose/components/`). Each component ships with a rendered example in the plugin's component style guide (`plugins/atlas-learn/skills/compose/template/styleguide.html`); the screenshots below are captured from it.
+Every atlaspedia handbook is assembled from a fixed catalog of components (see `plugins/atlaspedia/skills/compose/components/`). Each component ships with a rendered example in the plugin's component style guide (`plugins/atlaspedia/skills/compose/template/styleguide.html`); the screenshots below are captured from it.
 
 Headline features - the evidence-backed handbook, the topics dictionary, interactive diagrams, quizzes, plots and the code runner - are shown in the main [README](../README.md). This page documents the rest of the catalog.
 

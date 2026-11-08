@@ -1,6 +1,0 @@
-<!-- atlas-learn component: math/eq-numbered.html · use when: a display equation the text refers back to — numbered in page order, cross-referenced by id, copyable as LaTeX · replace: the ids (keep the eq- prefix), the equations and the sentences around them; add data-label only to override a number (1a) · runtime: scholar (E2, C9): (n) appended after KaTeX rendered, an empty a.eqref filled with (n), a Copy LaTeX button on hover or focus of every display equation · validator: eq id "x" should start with eq- (warning); broken links (an eqref whose target does not exist) -->
-<p>The forward Mercator equations take longitude \( \lambda \) and latitude \( \varphi \) to the plane:</p>
-<div class="eq" id="eq-e2-mercator">$$ x = R\,(\lambda - \lambda_0), \qquad y = R \ln \tan\!\left(\frac{\pi}{4} + \frac{\varphi}{2}\right) $$</div>
-<p>The inverse recovers the latitude with the Gudermannian function:</p>
-<div class="eq" id="eq-e2-inverse" data-label="1a">$$ \varphi = 2\arctan\!\left(e^{y/R}\right) - \frac{\pi}{2} $$</div>
-<p>Equation <a class="eqref" href="#eq-e2-mercator"></a> is what every web-map tile server evaluates; <a class="eqref" href="#eq-e2-inverse">the inverse</a> turns a clicked pixel back into coordinates. Hover an equation and press <b>Copy LaTeX</b> to paste its source into a paper or a notebook.</p>

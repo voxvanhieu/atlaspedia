@@ -1,14 +1,14 @@
 {
   "name": "voxvanhieu",
-  "description": "atlas-learn — turn any topic into a verified, interactive documentation site.",
+  "description": "atlaspedia — turn any topic into a verified, interactive documentation site.",
   "owner": {
     "name": "voxvanhieu"
   },
   "plugins": [
     {
-      "name": "atlas-learn",
-      "source": "./plugins/atlas-learn",
-      "description": "Insight → research → interactive documentation site. Commands: /atlas-learn:go, /atlas-learn:collect-insights, /atlas-learn:research, /atlas-learn:compose."
+      "name": "atlaspedia",
+      "source": "./plugins/atlaspedia",
+      "description": "Insight → research → interactive documentation site. Commands: /atlaspedia:go, /atlaspedia:collect-insights, /atlaspedia:research, /atlaspedia:compose."
     }
   ]
 }

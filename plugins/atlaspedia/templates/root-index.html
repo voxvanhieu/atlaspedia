@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Topics</title>
+<meta name="description" content="Dictionary of the research topics in this repository: search by name, tag or words; open a topic's interactive site.">
+<style>
+  :root {
+    --bg: #fbfaf7; --card: #ffffff; --ink: #1f2328; --ink-2: #57606a; --muted: #8b949e;
+    --line: #e3e1da; --line-2: #cfcbbf; --accent: #1f6f5f; --accent-soft: #e4f1ec; --focus: #1f6f5f;
+    --st-done: #1a7f37; --st-done-soft: #e3f3e8;
+    --st-compose: #0969da; --st-compose-soft: #e1ecfb;
+    --st-research: #b45309; --st-research-soft: #fdf1e2;
+    --st-brief: #6f42c1; --st-brief-soft: #efe8fd;
+    --st-insights: #6e7781; --st-insights-soft: #eceef1;
+    --radius: 10px; --shadow: 0 1px 2px rgba(20,20,30,.05), 0 6px 18px rgba(20,20,30,.05);
+    --font: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    --mono: ui-monospace, "Cascadia Code", Consolas, "SFMono-Regular", Menlo, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #0f1216; --card: #171b21; --ink: #e6e8eb; --ink-2: #b3bac4; --muted: #7d8590;
+      --line: #262c35; --line-2: #343c47; --accent: #5fc1a8; --accent-soft: #15302a; --focus: #5fc1a8;
+      --st-done: #4ade80; --st-done-soft: #12291b; --st-compose: #79b8ff; --st-compose-soft: #142339;
+      --st-research: #f0b35b; --st-research-soft: #33230c; --st-brief: #c4a6ff; --st-brief-soft: #251b3a;
+      --st-insights: #9aa4b1; --st-insights-soft: #222830;
+      --shadow: 0 1px 2px rgba(0,0,0,.4), 0 6px 18px rgba(0,0,0,.35);
+    }
+  }
+  * { box-sizing: border-box; }
+  html { background: var(--bg); color: var(--ink); font-family: var(--font); font-size: 16px; line-height: 1.5; }
+  body { margin: 0; min-height: 100vh; }
+  a { color: inherit; }
+  .wrap { max-width: 1120px; margin: 0 auto; padding: 32px 16px 64px; }
+  header { display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px 16px; margin-bottom: 20px; }
+  header h1 { font-size: 28px; letter-spacing: -.01em; margin: 0; font-weight: 650; }
+  header .count { color: var(--muted); font-size: 14px; }
+  header .hint { margin-left: auto; color: var(--muted); font-size: 13px; }
+  header .hint kbd { font-family: var(--mono); font-size: 12px; border: 1px solid var(--line-2); border-bottom-width: 2px; border-radius: 5px; padding: 0 5px; }
+  .toolbar { display: grid; grid-template-columns: 1fr auto; gap: 10px; margin-bottom: 12px; }
+  .search { position: relative; }
+  .search input { width: 100%; font: inherit; font-size: 16px; padding: 11px 40px 11px 14px; border: 1px solid var(--line-2); border-radius: var(--radius); background: var(--card); color: var(--ink); outline: none; }
+  .search input:focus { border-color: var(--focus); box-shadow: 0 0 0 3px var(--accent-soft); }
+  .search button { position: absolute; right: 6px; top: 50%; transform: translateY(-50%); border: 0; background: transparent; color: var(--muted); font: inherit; font-size: 18px; cursor: pointer; padding: 4px 8px; display: none; }
+  .search.has-text button { display: block; }
+  select { font: inherit; font-size: 14px; padding: 10px 12px; border: 1px solid var(--line-2); border-radius: var(--radius); background: var(--card); color: var(--ink); }
+  .chips { display: flex; flex-wrap: wrap; gap: 6px; margin: 0 0 8px; padding: 0; list-style: none; }
+  .chips.tags { margin-bottom: 20px; }
+  .chip { font: inherit; font-size: 13px; line-height: 1; padding: 7px 11px; border: 1px solid var(--line-2); border-radius: 999px; background: var(--card); color: var(--ink-2); cursor: pointer; display: inline-flex; align-items: center; gap: 6px; }
+  .chip .n { color: var(--muted); font-family: var(--mono); font-size: 11px; }
+  .chip:hover { border-color: var(--accent); color: var(--ink); }
+  .chip[aria-pressed="true"] { background: var(--accent-soft); border-color: var(--accent); color: var(--ink); }
+  .chip .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--st-c, var(--muted)); }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 14px; }
+  .card { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: 16px 18px 14px; box-shadow: var(--shadow); display: flex; flex-direction: column; gap: 8px; transition: border-color .12s, transform .12s; }
+  .card:hover { border-color: var(--accent); transform: translateY(-1px); }
+  .card h2 { font-size: 18px; margin: 0; font-weight: 620; line-height: 1.3; }
+  .card h2 a { text-decoration: none; }
+  .card h2 a:hover { text-decoration: underline; text-decoration-color: var(--accent); }
+  .card p { margin: 0; color: var(--ink-2); font-size: 14.5px; }
+  .card .tags { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 2px; }
+  .card .tag { font-size: 12px; color: var(--ink-2); background: var(--bg); border: 1px solid var(--line); border-radius: 6px; padding: 2px 7px; cursor: pointer; }
+  .card .tag:hover { border-color: var(--accent); }
+  .card footer { margin-top: auto; padding-top: 8px; border-top: 1px dashed var(--line); display: flex; align-items: center; gap: 10px; font-size: 12.5px; color: var(--muted); font-family: var(--mono); }
+  .badge { font-family: var(--font); font-size: 11.5px; font-weight: 600; letter-spacing: .02em; text-transform: uppercase; padding: 2px 8px; border-radius: 999px; color: var(--st-c); background: var(--st-s); }
+  .card .code { margin-left: auto; }
+  .fmt { font-family: var(--font); font-size: 11.5px; font-weight: 600; letter-spacing: .02em; text-transform: uppercase; padding: 1px 7px; border-radius: 999px; color: var(--ink-2); border: 1px solid var(--line-2); background: var(--card); }
+  .empty, .error { padding: 40px 20px; text-align: center; color: var(--muted); border: 1px dashed var(--line-2); border-radius: var(--radius); }
+  .error code { font-family: var(--mono); font-size: 13px; background: var(--card); border: 1px solid var(--line); border-radius: 6px; padding: 2px 6px; }
+  .st-done { --st-c: var(--st-done); --st-s: var(--st-done-soft); }
+  .st-compose { --st-c: var(--st-compose); --st-s: var(--st-compose-soft); }
+  .st-research { --st-c: var(--st-research); --st-s: var(--st-research-soft); }
+  .st-brief { --st-c: var(--st-brief); --st-s: var(--st-brief-soft); }
+  .st-insights { --st-c: var(--st-insights); --st-s: var(--st-insights-soft); }
+  @media (max-width: 600px) { .toolbar { grid-template-columns: 1fr; } header .hint { display: none; } }
+  @media print { .toolbar, .chips, header .hint { display: none; } .card { break-inside: avoid; box-shadow: none; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>Topics</h1>
+    <span class="count" id="count"></span>
+    <span class="hint">Press <kbd>/</kbd> to search · <kbd>Esc</kbd> to clear</span>
+  </header>
+  <div class="toolbar">
+    <div class="search" id="search">
+      <input id="q" type="search" placeholder="Filter by name, tag or words…" autocomplete="off" spellcheck="false" aria-label="Filter topics">
+      <button id="clear" type="button" aria-label="Clear">×</button>
+    </div>
+    <select id="sort" aria-label="Sort">
+      <option value="updated">Last updated</option>
+      <option value="name">Name</option>
+      <option value="status">Stage</option>
+    </select>
+  </div>
+  <ul class="chips" id="status-chips" aria-label="Stage filter"></ul>
+  <ul class="chips tags" id="tag-chips" aria-label="Tag filter"></ul>
+  <div class="grid" id="grid"></div>
+  <div class="empty" id="empty" hidden>No topic matches. Clear a filter or change the words.</div>
+  <div class="error" id="error" hidden></div>
+</div>
+<script id="topics-data" type="application/json">{"generated":"","topics":[]}</script>
+<script>
+(function () {
+  'use strict';
+  var STAGES = ['done', 'compose', 'research', 'brief', 'insights'];
+  var STAGE_LABEL = { done: 'done', compose: 'building site', research: 'researching', brief: 'brief', insights: 'insights' };
+  var state = { q: '', tags: [], status: null, sort: 'updated', topics: [] };
+  var $ = function (id) { return document.getElementById(id); };
+
+  function load() {
+    var dataEl = document.getElementById('topics-data');
+    if (!dataEl) { return Promise.reject(new Error("no topics-data block in this page — rebuild it with build_index.py")); }
+    try { return Promise.resolve(JSON.parse(dataEl.textContent).topics || []); }
+    catch (e) { return Promise.reject(new Error("topics-data block is not valid JSON — rebuild the page with build_index.py")); }
+  }
+
+  function norm(s) { return String(s || '').toLowerCase(); }
+  function esc(s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
+
+  function matches(t) {
+    if (state.status && t.status !== state.status) return false;
+    for (var i = 0; i < state.tags.length; i++) if ((t.tags || []).indexOf(state.tags[i]) < 0) return false;
+    if (!state.q) return true;
+    var words = state.q.split(/\s+/).filter(Boolean);
+    var hay = norm(t.name) + ' ' + norm(t.description) + ' ' + norm((t.tags || []).join(' ')) + ' ' + norm(t.code);
+    return words.every(function (w) { return hay.indexOf(w) >= 0; });
+  }
+
+  function sorted(list) {
+    var s = state.sort;
+    return list.slice().sort(function (a, b) {
+      if (s === 'name') return norm(a.name).localeCompare(norm(b.name));
+      if (s === 'status') { var d = STAGES.indexOf(a.status) - STAGES.indexOf(b.status); return d || String(b.updated).localeCompare(String(a.updated)); }
+      return String(b.updated || '').localeCompare(String(a.updated || '')) || norm(a.name).localeCompare(norm(b.name));
+    });
+  }
+
+  function renderChips() {
+    var all = state.topics;
+    var sc = $('status-chips'); sc.innerHTML = '';
+    STAGES.forEach(function (st) {
+      var n = all.filter(function (t) { return t.status === st; }).length; if (!n) return;
+      var li = document.createElement('li');
+      li.innerHTML = '<button type="button" class="chip st-' + st + '" aria-pressed="' + (state.status === st) + '" data-status="' + st + '"><span class="dot"></span>' + esc(STAGE_LABEL[st] || st) + ' <span class="n">' + n + '</span></button>';
+      sc.appendChild(li);
+    });
+    var counts = {};
+    all.forEach(function (t) { (t.tags || []).forEach(function (g) { counts[g] = (counts[g] || 0) + 1; }); });
+    var tags = Object.keys(counts).sort(function (a, b) { return counts[b] - counts[a] || a.localeCompare(b); });
+    var tc = $('tag-chips'); tc.innerHTML = '';
+    tags.forEach(function (g) {
+      var li = document.createElement('li');
+      li.innerHTML = '<button type="button" class="chip" aria-pressed="' + (state.tags.indexOf(g) >= 0) + '" data-tag="' + esc(g) + '">' + esc(g) + ' <span class="n">' + counts[g] + '</span></button>';
+      tc.appendChild(li);
+    });
+  }
+
+  function card(t) {
+    var href = 'topics/' + encodeURIComponent(t.code) + '/' + (t.entry || 'index.html');
+    var pages = t.pages ? t.pages + ' page' + (t.pages === 1 ? '' : 's') : '';
+    return '<article class="card st-' + esc(t.status) + '">' +
+      '<h2><a href="' + href + '">' + esc(t.name) + '</a></h2>' +
+      '<p>' + esc(t.description) + '</p>' +
+      '<div class="tags">' + (t.tags || []).map(function (g) { return '<span class="tag" data-tag="' + esc(g) + '">' + esc(g) + '</span>'; }).join('') + '</div>' +
+      '<footer><span class="badge">' + esc(STAGE_LABEL[t.status] || t.status) + '</span>' + (t.format === 'single' ? '<span class="fmt" title="One self-contained HTML page">single page</span>' : '') + '<span>' + esc(t.updated || '') + '</span>' + (pages ? '<span>' + pages + '</span>' : '') + '<span class="code">' + esc(t.code) + '</span></footer>' +
+      '</article>';
+  }
+
+  function render() {
+    var list = sorted(state.topics.filter(matches));
+    $('grid').innerHTML = list.map(card).join('');
+    $('empty').hidden = list.length > 0;
+    $('count').textContent = list.length === state.topics.length ? state.topics.length + ' topic' + (state.topics.length === 1 ? '' : 's') : list.length + ' of ' + state.topics.length;
+    $('search').classList.toggle('has-text', !!state.q);
+    renderChips();
+  }
+
+  function toggleTag(g) { var i = state.tags.indexOf(g); if (i >= 0) state.tags.splice(i, 1); else state.tags.push(g); render(); }
+
+  document.addEventListener('click', function (e) {
+    var b = e.target.closest('[data-tag]'); if (b) { toggleTag(b.getAttribute('data-tag')); return; }
+    var s = e.target.closest('[data-status]'); if (s) { var st = s.getAttribute('data-status'); state.status = state.status === st ? null : st; render(); }
+  });
+  $('q').addEventListener('input', function () { state.q = norm(this.value).trim(); render(); });
+  $('clear').addEventListener('click', function () { $('q').value = ''; state.q = ''; render(); $('q').focus(); });
+  $('sort').addEventListener('change', function () { state.sort = this.value; render(); });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === '/' && document.activeElement !== $('q')) { e.preventDefault(); $('q').focus(); $('q').select(); }
+    if (e.key === 'Escape') { $('q').value = ''; state.q = ''; state.tags = []; state.status = null; render(); $('q').blur(); }
+  });
+
+  load().then(function (topics) {
+    state.topics = topics.filter(function (t) { return t && t.code && t.name; });
+    render();
+    if (!state.topics.length) { $('empty').hidden = false; $('empty').textContent = 'No topics yet. Run /atlaspedia:go <topic> to start one.'; }
+  }).catch(function () {
+    $('error').hidden = false;
+    $('error').innerHTML = 'The topic list could not be loaded. Generate it with <code>python .claude/plugins/atlaspedia/scripts/build_index.py</code> from the repository root, then reload.';
+  });
+})();
+</script>
+</body>
+</html>
